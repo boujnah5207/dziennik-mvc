@@ -1,0 +1,13 @@
+﻿
+@if(@ViewBag.Current == "Profile")
+{
+    <li class="current">@Html.ActionLink("Profil", "Profile", "Admin")</li>
+    <li>@Html.ActionLink("Uzytkownicy", "Index", "Users")</li>
+}
+@if (@ViewBag.Current == "Uzytkownicy")
+{
+    <li>@Html.ActionLink("Strona główna", "Welcome", "Home")</li>   
+    <li class="current">@Html.ActionLink("Uzytkownicy", "Index", "Users")</li>
+
+}
+

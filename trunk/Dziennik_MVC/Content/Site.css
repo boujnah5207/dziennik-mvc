@@ -1,0 +1,490 @@
+﻿/*----------------------------------------------------------
+The base color for this template is #5c87b2. If you'd like
+to use a different color start by replacing all instances of
+#5c87b2 with your new color.
+----------------------------------------------------------*/
+html
+{ height: 100%;}
+
+*
+{ margin: 0;
+  padding: 0;}
+
+body
+{ font: normal .80em 'trebuchet ms',calibri, sans-serif;
+  background: #F3F3F3;
+  background-image:url('/Content/Images/pattern.png');
+  color: #555;}
+
+p
+{ padding: 0 0 20px 0;
+  line-height: 1.5em;
+  font-size: 107%;}
+
+img
+{ border: 0;}
+
+h1, h2, h3, h4, h5, h6 
+{ font: normal 250%, 'Yanone Kaffeesatz'.calibri, sans-serif;
+  color: #444;
+  margin: 0 0 15px 0;
+  padding: 5px 0 5px 0;}
+
+h2
+{ font: normal 170% 'Yanone Kaffeesatz',calibri, sans-serif;
+  color: #F14E23;  
+  margin: 0;
+  padding: 0 0 8px 0;}
+
+h3
+{ font-size: 200%;
+  margin: 0 0 9px 0;
+  color: #444;}
+
+h4, h5, h6
+{ margin: 0;
+  padding: 0 0 5px 0;
+  font: normal 100% calibri, sans-serif;
+  color: #F14E23;
+  line-height: 1em;}
+
+h5, h6
+{ font: italic 95% calibri, sans-serif;
+  color: #888;
+  padding-bottom: 15px;}
+
+h6
+{ color: #362C20;}
+
+a, a:hover
+{ outline: none;
+  text-decoration: none;
+  color: #C94F2A;}
+
+a:hover
+{ 
+	text-decoration: underline;
+	color:#000000;    
+}
+
+.left
+{ float: left;
+  width: auto;
+  margin-right: 10px;}
+
+.right
+{ float: right; 
+  width: auto;
+  margin-left: 10px;}
+
+.center
+{ display: block;
+  text-align: center;
+  margin: 20px auto;}
+
+ul
+{ margin: 2px 0 22px 17px;}
+
+ul li
+{ list-style-type: circle;
+  background: #FFFFFF
+  margin: 0 0 0 0; 
+  padding: 0 0 4px 5px;}
+
+ol
+{ margin: 8px 0 22px 20px;}
+
+ol li
+{ margin: 0 0 11px 0;}
+
+#main, #header, #logo, #site_content, #footer
+{ margin-left: auto; 
+  margin-right: auto;}
+
+#main
+{ width: 550px;
+  margin: 20px auto;}
+
+#header
+{ width: 100%;
+  height: 5px;}
+
+#logo
+{ width: 550px;
+  float: left;
+  height: 150px;
+  background: transparent;
+  padding: 0 0 0px 10px;
+  background-image:url('/Content/Images/logo.png');
+  background-repeat:no-repeat;
+  background-position:left top;
+  }
+
+#logo h1
+{ 
+  width: 128px;  
+  width: 128px;  
+  padding: 5px 0 0 17px;
+  color: #555;
+  float: left;
+  
+ }
+
+#logo h1 a
+{ color: #35BDF5;
+  text-decoration: none;}
+
+#logo h1 a:hover
+{ color: #555;
+  text-decoration: none;}
+
+#site_content
+{ width: 550px;
+  overflow: hidden;
+  margin: 0 auto 0 auto;
+  padding: 0;
+  background: #fff;
+  border: 1px solid #A19A92;} 
+
+#content
+{ text-align: left;
+  width: 900px;
+  padding: 25px 0 5px 25px;
+  margin: 0;}
+
+#content ul
+{ margin: 2px 0 22px 0px;}
+
+#content ul li
+{ list-style-type: none;
+  background: url('/Content/Images/info.ico') no-repeat scroll 0 2px transparent;
+  margin: 0 0 6px 0; 
+  padding: 0 0 4px 25px;
+  line-height: 1.5em;}
+
+#footer
+{ clear: both;
+  width: 100%;
+  font: normal 150% 'yanone kaffeesatz',  arial, sans-serif;
+  height: 85px;
+  padding: 20px 0 5px 0;
+  text-align: center; 
+  color: #555;
+  background: transparent;
+  margin-bottom: 20px;}
+
+#footer p
+{ padding: 0 0 10px 0;}
+
+#footer a, #footer a:hover
+{ color: #555;
+  text-decoration: none;}
+
+#footer a:hover
+{ color: #35BDF5;
+  text-decoration: none;}
+
+.gallery img
+{ position:absolute;}
+
+.form_settings
+{ margin: 5px 0 0 0;}
+
+.form_settings p
+{ padding: 0 0 10px 0;}
+
+.form_settings span
+{ padding: 5px 0; 
+  float: left; 
+  width: 170px; 
+  text-align: left;}
+  
+.form_settings input, .form_settings textarea
+{ width: 252px; 
+  font: 100% 'trebuchet ms', arial;
+  border: 0;
+  border: 1px solid #eee;
+  padding: 5px 10px;
+  background: #fff;
+  color: #FFF;}
+  
+.form_settings .submit
+{ border: 0; 
+  width: auto;
+  margin: 0 0 0 200px; 
+  cursor: pointer; 
+  color: #35BDF5;
+  border: 1px solid #ddd;
+  padding: 5px 15px;
+  background: #fff;
+  font: normal 140% 'Yanone Kaffeesatz', sans-serif;}
+
+.form_settings textarea, .form_settings select
+{ font: 100% 'trebuchet ms', arial; 
+  border: 1px solid #eee;
+  padding: 5px 10px;
+  background: #fff;
+  width: 252px;
+  overflow: auto;}
+
+.form_settings select
+{ width: 274px;}
+
+.form_settings .checkbox
+{ margin: 4px 0; 
+  padding: 0; 
+  width: 14px;
+  border: 0;
+  background: none;}
+
+.search
+{ color: #666;
+  border: 1px solid #eee;
+  margin: 0;
+  padding: 10px 5px;
+  width: 189px;
+  color: #F14E23;}
+  
+.subscribe
+{ color: #35BDF5;
+  border: 1px solid #ddd;
+  padding: 5px 10px;
+  background: #fff;
+  float: right;
+  cursor: pointer;
+  margin: 0;
+  font: normal 140% 'Yanone Kaffeesatz', sans-serif;}
+
+
+/* FORM LAYOUT ELEMENTS   
+----------------------------------------------------------*/
+
+fieldset 
+{
+	width:50%;
+	border: 1px solid #FF8000;
+	border-style:dotted;
+	background-color:#FFF8ED;
+	padding: 0 1.4em 1.4em 1.4em;
+	margin: 0 0 1.5em 0;
+}
+
+legend {
+	font-size: 1.2em;
+	font-weight: bold;
+	color:#F14E23;
+}
+
+textarea {
+	min-height: 75px;
+}
+
+input[type="text"], 
+input[type="password"] {
+	padding: 5px;  
+	font-size: 15px;  
+	text-shadow: 0px 1px 0px #fff;  
+	outline: none;  
+	background: -webkit-gradient(linear, left top, left bottombottom, from(#FAEDD4), to(#ffffff));  
+	background: -moz-linear-gradient(top,  #FAEDD4,  #ffffff);  
+	-webkit-border-radius: 3px;  
+	-moz-border-radius: 3px;  
+	border-radius: 3px;  
+	border: 1px solid #717171;  
+	-webkit-box-shadow: 1px 1px 0px #efefef;  
+	-moz-box-shadow: 1px 1px 0px #efefef;  
+	box-shadow:  1px 1px 0px #efefef;  
+}
+
+input:focus {  
+	-webkit-box-shadow: 0px 0px 5px #FF8000;  
+	-moz-box-shadow: 0px 0px 5px #FF8000;  
+	box-shadow: 0px 0px 5px #FF8000;  
+} 
+
+select {
+	border: 1px solid #ccc;
+	padding: 2px;
+	font-size: 1.2em;
+	color: #444;
+}
+
+input[type="submit"] {
+	-moz-border-radius:3px;
+	-webkit-border-radius:3px;
+	border-radius:3px;
+	background: -moz-linear-gradient(19% 75% 90deg,#F0DEB8, #FDF0D1, #fff 100%);
+	background: -webkit-gradient(linear, 0% 0%, 0% 100%, from(#FFFFFF), to(#F0DEB8), color-stop(.3,#FDF0D1));
+	color:#836d4d;
+	float:left;
+	font-family:arial,helvetica,sans-serif;
+	font-size:15px;
+	font-weight:bold;
+	padding:6px 35px;
+	margin: 15px 20px 0px 150px;
+	border: 1px solid #d4c198;
+}
+
+input[type="submit"]:hover{
+	background: -moz-linear-gradient(19% 75% 90deg,#EBD9B4, #F2E6C8, #F5F5F5 100%);
+	background: -webkit-gradient(linear, 0% 0%, 0% 100%, from(#F5F5F5), to(#EBD9B4), color-stop(.3,#F2E6C8));
+}
+.tooltip
+{
+	border: 1px;
+	border-style:dotted;
+	border-color: #FF7300;
+	width:50%;
+	background-color:#FFF8ED;    
+	padding: 0 15px 0px 20px;
+	margin: 0 0 1.5em 0;
+}
+
+/* TABLE
+----------------------------------------------------------*/
+
+/* MISC  
+----------------------------------------------------------*/
+.clear {
+	clear: both;
+}
+
+.error {
+	color: Red;
+}
+
+nav, 
+#menucontainer {
+	margin-top: 40px;
+}
+
+div#title {
+	display: block;
+	float: left;
+	text-align: left;
+}
+
+#logindisplay {
+	font-size: 1.1em;
+	display: block;
+	text-align: right;
+	margin: 10px;
+	color: White;
+}
+
+#logindisplay a:link {
+	color: white;
+	text-decoration: underline;
+}
+
+#logindisplay a:visited {
+	color: white;
+	text-decoration: underline;
+}
+
+#logindisplay a:hover {
+	color: white;
+	text-decoration: none;
+}
+
+/* Styles for validation helpers
+-----------------------------------------------------------*/
+.field-validation-error {
+	color: #ff0000;
+}
+
+.field-validation-valid {
+	display: none;
+}
+
+.input-validation-error {
+	border: 1px solid #ff0000;
+	background-color: #ffeeee;
+}
+
+.validation-summary-errors {
+	font-weight: bold;
+	color: #ff0000;
+}
+
+.validation-summary-valid {
+	display: none;
+}
+
+/* Styles for editor and display helpers
+----------------------------------------------------------*/
+.display-label {
+	margin: 1em 5px 0 0;	
+}
+
+.display-field{
+	margin: 0.5em 0 0 0;	
+}
+
+.editor label {
+  float: left;
+  width: 100px;  
+  padding: 2px 0px 2px 0px;
+  margin: 10px 0 0 10px;
+  text-align: left; 
+}
+
+.editor input[type="checkbox"]
+{
+   
+	padding: 15px 0px 2px 0px;
+	margin: 15px 0 0 10px;
+	
+	}
+
+.editor input[type=text],input[type="password"] {
+  width: 200px; 
+  padding: 2px 0px 2px 0px;
+  margin: 10px 0 0 10px;
+}
+
+
+.text-box {
+	width: 30em;
+}
+
+.text-box.multi-line {
+	height: 6.5em;
+}
+
+.tri-state {
+	width: 6em;
+}
+
+table
+{ 
+	margin: 10px 0 30px 0;
+	width:100%;
+	text-align:center;
+	border: 1px;
+	border-color: #000000;
+	border-style:solid;
+	background: #FFFFFF;
+	border-collapse:collapse;    
+}
+
+table tr th, table tr td
+{ background: #FFE1B0;
+  color: #000000;
+  padding: 7px 4px;
+  text-align: center;
+  border: 1px;
+  border-style:solid;
+  border-color: #000000;
+}
+  
+table tr td
+{ background: #FFF1DB;
+  color: #000000; 
+}
+
+
+
+
+
+
