@@ -1,0 +1,65 @@
+﻿@model Dziennik_MVC.Models.Entities.Wykladowcy
+
+@{
+    ViewBag.Title = "Profile";
+    Layout = "~/Areas/Admin/Views/Shared/_AdminLayout.cshtml";
+}
+
+<fieldset>
+    <legend>Twoje konto</legend>
+
+    <table>
+    
+    </table>
+
+
+
+    <div class="display-label">Tytuly</div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.Tytuly)
+    </div>
+
+    <div class="display-label">Konsultacje</div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.Konsultacje)
+    </div>
+
+    <div class="display-label">Login</div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.Login)
+    </div>
+
+    <div class="display-label">Haslo</div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.Haslo)
+    </div>
+
+    <div class="display-label">isActive</div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.isActive)
+    </div>
+
+    <div class="display-label">Imie</div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.Imie)
+    </div>
+
+    <div class="display-label">Nazwisko</div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.Nazwisko)
+    </div>
+
+    <div class="display-label">Email</div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.Email)
+    </div>
+
+    <div class="display-label">ID_uprawnienia</div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.ID_uprawnienia)
+    </div>
+</fieldset>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id=Model.ID_uzytkownika }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>
