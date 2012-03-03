@@ -24,6 +24,15 @@ namespace Dziennik_MVC.Models.Entities
         [StringLength(100, ErrorMessage = "{0} musi być co najmniej {2} znaków długości.", MinimumLength = 6)]
         public string Password { get; set; }
 
+        [Required]
+        [DisplayFormat(DataFormatString = "{0:d}", ApplyFormatInEditMode = true)]
+        public DateTime CreationDate { get; set; }
+
+        [Required(ErrorMessage="Data urodzenia jest wymagana")]
+        [DisplayFormat(DataFormatString = "{0:d}", ApplyFormatInEditMode = true)]
+        [DataType(DataType.Date)]
+        public DateTime BirthDay { get; set; }
+
         [Display(Name = "Aktywny")]
         public bool isActive { get; set; }
 

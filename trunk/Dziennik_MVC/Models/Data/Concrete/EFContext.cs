@@ -63,8 +63,10 @@ namespace Dziennik_MVC.Models.Data.Concrete
                     {
                         Login = "Admin",
                         Password = FormsAuthentication.HashPasswordForStoringInConfigFile("wildchild", "md5"),
+                        CreationDate = DateTime.Now,
                         FirstName = "Adam",
                         LastName = "Skubicha",
+                        BirthDay = new DateTime(1987,1,25),
                         isActive = true,
                         Email = "mvaddib@gmail.com",
                         RoleID = 1                        

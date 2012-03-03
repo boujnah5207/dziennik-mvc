@@ -93,7 +93,7 @@ ol
 ol li
 { margin: 0 0 11px 0;}
 
-DIV.Message { background: #FFDBDD; color:000000; padding: .2em; margin-top:.25em; color: #000000; } 
+DIV.Message { background: #E3FAD2; padding: .2em; margin-top:.25em; color: #000000; } 
 
 #main, #header, #logo, #menubar, #site_content, #footer
 { margin-left: auto; 
@@ -336,7 +336,7 @@ ul#menu li a:hover
 
 fieldset 
 {
-    width:80%;
+    width:95%;
     border: 1px solid #FF7300;
     border-style:dotted;
     background-color:#FFF8ED;
@@ -514,22 +514,32 @@ div#title {
 
 /* Styles for editor and display helpers
 ----------------------------------------------------------*/
+.display
+{
+    margin: 0px 0px 0px 0px;
+    padding: 0px 0px 0px 0px;
+    text-align:left;    
+}
+
 .display-label
 {
-    margin: 1em 0 0 0;
+    margin: 0px 0px 14px 2px ;
+    font-weight: bold;
 }
 
 .display-field
 {
-    margin: 0.5em 0 0 0;
+    margin:-29px 0px 0px 130px ;
+    float: left;
 }
 
 .editor label {
   float: left;
   width: 100px;  
   padding: 2px 0px 2px 0px;
-  margin: 10px 0 0 10px;
+  margin: 10px 0 0 2px;
   text-align: left; 
+  font-weight: bold;
 }
 
 .editor input[type="checkbox"]
@@ -544,6 +554,14 @@ div#title {
   width: 200px; 
   padding: 2px 0px 2px 0px;
   margin: 10px 0 0 10px;
+  font-size: 14px;
+}
+
+.editor 
+{
+    text-align:left;
+    padding: 0px 0px 0px 0px;
+        
 }
 
 .text-box {

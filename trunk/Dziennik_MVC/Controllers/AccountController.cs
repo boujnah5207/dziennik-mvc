@@ -28,6 +28,9 @@ namespace Dziennik_MVC.Controllers
 
         public ActionResult LogOn()
         {
+            if (Request.IsAuthenticated && (User.IsInRole("Admin") || (User.IsInRole("Wykladowca") || (User.IsInRole("Student")))))
+                return RedirectToRoute("Profile", new { login = User.Identity.Name });
+
             return View();
         }
 
