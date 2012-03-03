@@ -10,15 +10,20 @@ namespace Dziennik_MVC.Models.Data.Concrete
 {
     public class EFContext : DbContext
     {
-        public DbSet<Uprawnienia> Uprawnienia { get; set; }
-        public DbSet<Uzytkownicy> Uzytkownicy { get; set; }
-        public DbSet<Oceny> Oceny { get; set; }
-        public DbSet<Grupy> Grupy { get; set; }
-        public DbSet<Projekty> Projekty { get; set; }
-        public DbSet<Przedmioty> Przedmioty { get; set; }
-        public DbSet<Semestry> Semestry { get; set; }
-        public DbSet<Studenci> Studenci { get; set; }
-        public DbSet<Wykladowcy> Wykladowcy { get; set; }
+        public EFContext() : base("Dziennik_WWW")
+        { 
+        
+        }
+
+        public DbSet<Dziennik_MVC.Models.Entities.Roles> Roles { get; set; }
+        public DbSet<Users> Users { get; set; }
+        public DbSet<Grades> Grades { get; set; }
+        public DbSet<Groups> Groups { get; set; }
+        public DbSet<Projects> Projects { get; set; }
+        public DbSet<Courses> Courses { get; set; }
+        public DbSet<Semesters> Semesters { get; set; }
+        public DbSet<Students> Students { get; set; }
+        public DbSet<Teachers> Teachers { get; set; }
 
         public void Save()
         {
@@ -33,37 +38,36 @@ namespace Dziennik_MVC.Models.Data.Concrete
         public class EFContextInitializer : DropCreateDatabaseIfModelChanges<EFContext>
         {
             protected override void Seed(EFContext context)
-            {                
-                
-                var role = new Uprawnienia
+            {
+
+                var role = new Dziennik_MVC.Models.Entities.Roles
                 {
-                    Nazwa_uprawnienia = "Admin",                    
+                    RoleName = "Admin",                    
                 };
 
-                var role1 = new Uprawnienia
+                var role1 = new Dziennik_MVC.Models.Entities.Roles
                 {
-                    Nazwa_uprawnienia = "Wykladowca",
+                    RoleName = "Wykladowca",
                 };
-                var role2 = new Uprawnienia
+                var role2 = new Dziennik_MVC.Models.Entities.Roles
                 {
-                    Nazwa_uprawnienia = "Student",
+                    RoleName = "Student",
                 };
 
-                context.Uprawnienia.Add(role);
-                context.Uprawnienia.Add(role1);
-                context.Uprawnienia.Add(role2);
+                context.Roles.Add(role);
+                context.Roles.Add(role1);
+                context.Roles.Add(role2);
 
-                context.Uzytkownicy.Add(
-                    new Wykladowcy
+                context.Users.Add(
+                    new Admins
                     {
                         Login = "Admin",
-                        Haslo = FormsAuthentication.HashPasswordForStoringInConfigFile("wildchild", "md5"),
-                        Imie = "Adam",
-                        Nazwisko = "Skubicha",
+                        Password = FormsAuthentication.HashPasswordForStoringInConfigFile("wildchild", "md5"),
+                        FirstName = "Adam",
+                        LastName = "Skubicha",
                         isActive = true,
                         Email = "mvaddib@gmail.com",
-                        Tytuly = "brak",
-                        ID_uprawnienia = 1                        
+                        RoleID = 1                        
 
                     });
             }

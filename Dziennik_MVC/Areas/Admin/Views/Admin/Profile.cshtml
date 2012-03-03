@@ -1,4 +1,4 @@
-﻿@model Dziennik_MVC.Models.Entities.Wykladowcy
+﻿@model Dziennik_MVC.Models.Entities.Admins
 
 @{
     ViewBag.Title = "Profile";
@@ -12,18 +12,6 @@
     
     </table>
 
-
-
-    <div class="display-label">Tytuly</div>
-    <div class="display-field">
-        @Html.DisplayFor(model => model.Tytuly)
-    </div>
-
-    <div class="display-label">Konsultacje</div>
-    <div class="display-field">
-        @Html.DisplayFor(model => model.Konsultacje)
-    </div>
-
     <div class="display-label">Login</div>
     <div class="display-field">
         @Html.DisplayFor(model => model.Login)
@@ -31,7 +19,7 @@
 
     <div class="display-label">Haslo</div>
     <div class="display-field">
-        @Html.DisplayFor(model => model.Haslo)
+        @Html.DisplayFor(model => model.Password)
     </div>
 
     <div class="display-label">isActive</div>
@@ -41,12 +29,12 @@
 
     <div class="display-label">Imie</div>
     <div class="display-field">
-        @Html.DisplayFor(model => model.Imie)
+        @Html.DisplayFor(model => model.FirstName)
     </div>
 
     <div class="display-label">Nazwisko</div>
     <div class="display-field">
-        @Html.DisplayFor(model => model.Nazwisko)
+        @Html.DisplayFor(model => model.LastName)
     </div>
 
     <div class="display-label">Email</div>
@@ -56,10 +44,10 @@
 
     <div class="display-label">ID_uprawnienia</div>
     <div class="display-field">
-        @Html.DisplayFor(model => model.ID_uprawnienia)
+        @Html.DisplayFor(model => model.RoleID)
     </div>
 </fieldset>
 <p>
-    @Html.ActionLink("Edit", "Edit", new { id=Model.ID_uzytkownika }) |
+    @Html.ActionLink("Edit", "Edit", new { id=Model.UserID }) |
     @Html.ActionLink("Back to List", "Index")
 </p>

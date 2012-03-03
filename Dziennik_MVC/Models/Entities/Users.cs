@@ -7,12 +7,12 @@ using DataAnnotationsExtensions;
 
 namespace Dziennik_MVC.Models.Entities
 {
-    public abstract class Uzytkownicy
+    public abstract class Users
     {
-        public Uzytkownicy() { 
+        public Users() { 
         }
         [Key, DatabaseGenerated(DatabaseGeneratedOption.Identity)]
-        public int ID_uzytkownika { get; set; }
+        public int UserID { get; set; }
 
         [Required]
         [StringLength(50, ErrorMessage = "{0} musi być co najmniej {2} znaków długości.", MinimumLength = 4)]
@@ -22,25 +22,25 @@ namespace Dziennik_MVC.Models.Entities
         [Required]
         [DataType(DataType.Password)]
         [StringLength(100, ErrorMessage = "{0} musi być co najmniej {2} znaków długości.", MinimumLength = 6)]
-        public string Haslo { get; set; }
+        public string Password { get; set; }
 
         [Display(Name = "Aktywny")]
         public bool isActive { get; set; }
 
         [Required]
         [StringLength(50, ErrorMessage = "{0} musi być co najmniej {2} znaków długości.", MinimumLength = 3)]
-        public string Imie { get; set; }
+        public string FirstName { get; set; }
 
         [Required]
         [StringLength(50, ErrorMessage = "{0} musi być co najmniej {2} znaków długości.", MinimumLength = 2)]
-        public string Nazwisko { get; set; }
+        public string LastName { get; set; }
 
         [Required]
         [Email(ErrorMessage = "To nie jest poprawny adres email!")]
         public string Email { get; set; }
 
-        public int ID_uprawnienia { get; set; }
+        public int RoleID { get; set; }
 
-        public virtual Uprawnienia Uprawnienia { get; set; }
+        public virtual Roles Roles { get; set; }
     }
 }

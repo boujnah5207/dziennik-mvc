@@ -13,14 +13,17 @@ namespace Dziennik_MVC.Areas.Admin.Controllers
 { 
     public class AdminController : Controller
     {
-        private IUzytkownicyRepository _repo;
+        private IUsersRepository _repo;
 
-        public AdminController(IUzytkownicyRepository repo) 
+        public AdminController(IUsersRepository repo) 
         {
             _repo = repo;
         }
 
-        [Authorize(Roles = "Admin,Wykladowca")]  // Akcja odpowiedzialna za wyświetlenie profilu Admina/Wykladowcy
+        //
+        // GET: Profile/{login}
+
+        [Authorize(Roles = "Admin")]  // Akcja odpowiedzialna za wyświetlenie profilu Admina/Wykladowcy
         public ViewResult Profile(string login ) {
             
             ViewBag.Current = "Profile";    // Aktyalne zaznaczenie zakladki Profil w Menu 
@@ -58,7 +61,7 @@ namespace Dziennik_MVC.Areas.Admin.Controllers
         // POST: /Admin/Admin/Create
 
         [HttpPost]
-        public ActionResult Create(Uzytkownicy uzytkownicy)
+        public ActionResult Create(Users uzytkownicy)
         {
             if (ModelState.IsValid)
             {
@@ -85,7 +88,7 @@ namespace Dziennik_MVC.Areas.Admin.Controllers
         // POST: /Admin/Admin/Edit/5
 
         [HttpPost]
-        public ActionResult Edit(Uzytkownicy uzytkownicy)
+        public ActionResult Edit(Users uzytkownicy)
         {
             if (ModelState.IsValid)
             {

@@ -59,7 +59,7 @@ namespace Dziennik_MVC
 
         private static void RegisterServices(IKernel kernel)
         {
-            kernel.Bind<IUzytkownicyRepository>().To<UzytkownicyRepository>().InRequestScope();
+            kernel.Bind<IUsersRepository>().To<UsersRepository>().InRequestScope();
             //kernel.Inject(Membership.Provider);
            // kernel.Inject(Roles.Provider);     
         }
