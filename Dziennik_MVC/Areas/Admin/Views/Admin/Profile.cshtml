@@ -12,19 +12,26 @@
     
     </table>
 
+    <div class="display">
     <div class="display-label">Login</div>
     <div class="display-field">
         @Html.DisplayFor(model => model.Login)
     </div>
 
-    <div class="display-label">Haslo</div>
+    <div class="display-label">Data utworzenia</div>
     <div class="display-field">
-        @Html.DisplayFor(model => model.Password)
+        @Html.DisplayFor(model => model.CreationDate)
     </div>
 
-    <div class="display-label">isActive</div>
+    <div class="display-label">Konto</div>
     <div class="display-field">
-        @Html.DisplayFor(model => model.isActive)
+        @if (Model.isActive){
+             @:Aktywne 
+        }
+        else {
+             @:Nieaktywne
+        }
+        
     </div>
 
     <div class="display-label">Imie</div>
@@ -37,17 +44,22 @@
         @Html.DisplayFor(model => model.LastName)
     </div>
 
+    <div class="display-label">Data urodzenia:</div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.BirthDay)
+    </div>
+
     <div class="display-label">Email</div>
     <div class="display-field">
         @Html.DisplayFor(model => model.Email)
     </div>
 
-    <div class="display-label">ID_uprawnienia</div>
+    <div class="display-label">Uprawnienia</div>
     <div class="display-field">
-        @Html.DisplayFor(model => model.RoleID)
+        @Html.DisplayFor(model => model.Roles.RoleName)
+    </div>
     </div>
 </fieldset>
 <p>
-    @Html.ActionLink("Edit", "Edit", new { id=Model.UserID }) |
-    @Html.ActionLink("Back to List", "Index")
+    @Html.ActionLink("Edytuj dane konta", "Edit", new { id=Model.UserID })
 </p>

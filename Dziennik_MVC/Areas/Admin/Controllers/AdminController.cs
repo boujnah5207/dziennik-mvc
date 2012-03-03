@@ -28,99 +28,43 @@ namespace Dziennik_MVC.Areas.Admin.Controllers
             
             ViewBag.Current = "Profile";    // Aktyalne zaznaczenie zakladki Profil w Menu 
 
-            var user = _repo.GetUser(login);
+            var user = _repo.GetUser(login) as Admins;
+
+            return View(user);
+        }
+       
+        //
+        // GET: /Profile/Edit/1
+ 
+        public ActionResult Edit(int id)
+        {
+            Admins user = _repo.GetUser(id) as Admins;
+
+            ViewBag.ListaUprawnien = new SelectList(_repo.GetAllRoles, "RoleID", "RoleName", user.UserID); // Lista Uprawnien
+            ViewBag.Current = "Profile";  // Aktyalne zaznaczenie zakladki Profil w Menu 
+           
 
             return View(user);
         }
 
-        public ViewResult Index()
-        {
-           // var uzytkownicy = db.Uzytkownicy.Include(u => u.Uprawnienia);
-            return View();
-        }
-
         //
-        // GET: /Admin/Admin/Details/5
-
-        public ViewResult Details(int id)
-        {
-           // Uzytkownicy uzytkownicy = db.Uzytkownicy.Find(id);
-            return View();
-        }
-
-        //
-        // GET: /Admin/Admin/Create
-
-        public ActionResult Create()
-        {
-           // ViewBag.ID_uprawnienia = new SelectList(db.Uprawnienia, "ID_uprawnienia", "Nazwa_uprawnienia");
-            return View();
-        } 
-
-        //
-        // POST: /Admin/Admin/Create
+        // POST: /Profile/Edit/1
 
         [HttpPost]
-        public ActionResult Create(Users uzytkownicy)
+        public ActionResult Edit(Admins user )
         {
+           // var admin = user as Admins;
             if (ModelState.IsValid)
             {
-              //  db.Uzytkownicy.Add(uzytkownicy);
-              //  db.SaveChanges();
-                return RedirectToAction("Index");  
+                _repo.EditUser(user);
+                _repo.Save();
+                TempData["message"] = "Zauktalizowano twój profil!";
+                return RedirectToRoute("Profile", new { login = user.Login });
             }
-
-           // ViewBag.ID_uprawnienia = new SelectList(db.Uprawnienia, "ID_uprawnienia", "Nazwa_uprawnienia", uzytkownicy.ID_uprawnienia);
-            return View(uzytkownicy);
-        }
-        
-        //
-        // GET: /Admin/Admin/Edit/5
- 
-        public ActionResult Edit(int id)
-        {
-            //Uzytkownicy uzytkownicy = db.Uzytkownicy.Find(id);
-           // ViewBag.ID_uprawnienia = new SelectList(db.Uprawnienia, "ID_uprawnienia", "Nazwa_uprawnienia", uzytkownicy.ID_uprawnienia);
+            ViewBag.ListaUprawnien = new SelectList(_repo.GetAllRoles, "RoleID", "RoleName", user.UserID);
             return View();
         }
-
-        //
-        // POST: /Admin/Admin/Edit/5
-
-        [HttpPost]
-        public ActionResult Edit(Users uzytkownicy)
-        {
-            if (ModelState.IsValid)
-            {
-               // db.Entry(uzytkownicy).State = EntityState.Modified;
-              //  db.SaveChanges();
-                return RedirectToAction("Index");
-            }
-           // ViewBag.ID_uprawnienia = new SelectList(db.Uprawnienia, "ID_uprawnienia", "Nazwa_uprawnienia", uzytkownicy.ID_uprawnienia);
-            return View();
-        }
-
-        //
-        // GET: /Admin/Admin/Delete/5
- 
-        public ActionResult Delete(int id)
-        {
-          //  Uzytkownicy uzytkownicy = db.Uzytkownicy.Find(id);
-            return View();
-        }
-
-        //
-        // POST: /Admin/Admin/Delete/5
-
-        [HttpPost, ActionName("Delete")]
-        public ActionResult DeleteConfirmed(int id)
-        {            
-           // Uzytkownicy uzytkownicy = db.Uzytkownicy.Find(id);
-          //  db.Uzytkownicy.Remove(uzytkownicy);
-          //  db.SaveChanges();
-            return RedirectToAction("Index");
-        }
-
+               
         protected override void Dispose(bool disposing)
         {
             _repo.Dispose();
