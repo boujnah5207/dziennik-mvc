@@ -107,18 +107,19 @@
     <Compile Include="Helpers\DziennikMembershipProvider.cs" />
     <Compile Include="Helpers\DziennikRoleProvider.cs" />
     <Compile Include="Models\AccountModels.cs" />
-    <Compile Include="Models\Data\Abstract\IUzytkownicyRepository.cs" />
+    <Compile Include="Models\Data\Abstract\IUsersRepository.cs" />
     <Compile Include="Models\Data\Concrete\EFContext.cs" />
-    <Compile Include="Models\Data\Concrete\UzytkownicyRepository.cs" />
-    <Compile Include="Models\Entities\Grupy.cs" />
-    <Compile Include="Models\Entities\Oceny.cs" />
-    <Compile Include="Models\Entities\Projekty.cs" />
-    <Compile Include="Models\Entities\Przedmioty.cs" />
-    <Compile Include="Models\Entities\Semestry.cs" />
-    <Compile Include="Models\Entities\Studenci.cs" />
-    <Compile Include="Models\Entities\Uprawnienia.cs" />
-    <Compile Include="Models\Entities\Uzytkownicy.cs" />
-    <Compile Include="Models\Entities\Wykladowcy.cs" />
+    <Compile Include="Models\Data\Concrete\UsersRepository.cs" />
+    <Compile Include="Models\Entities\Admins.cs" />
+    <Compile Include="Models\Entities\Groups.cs" />
+    <Compile Include="Models\Entities\Grades.cs" />
+    <Compile Include="Models\Entities\Projects.cs" />
+    <Compile Include="Models\Entities\Courses.cs" />
+    <Compile Include="Models\Entities\Semesters.cs" />
+    <Compile Include="Models\Entities\Students.cs" />
+    <Compile Include="Models\Entities\Roles.cs" />
+    <Compile Include="Models\Entities\Users.cs" />
+    <Compile Include="Models\Entities\Teachers.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

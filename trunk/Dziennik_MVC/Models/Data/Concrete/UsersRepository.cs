@@ -11,7 +11,7 @@ using System.Data;
 
 namespace Dziennik_MVC.Models.Data.Concrete
 {
-    public class UzytkownicyRepository : IUzytkownicyRepository
+    public class UsersRepository : IUsersRepository
     {
         private const string MissingRole = "Uprawnienie nie istnieje";
         private const string MissingUser = "Użytkownik nie istnieje";
@@ -21,146 +21,130 @@ namespace Dziennik_MVC.Models.Data.Concrete
 
         private EFContext entities;
 
-        public UzytkownicyRepository( )
+        public UsersRepository( )
         {
             entities = new EFContext();
         }
-        
-        public int NumberOfUsers
+ 
+        public IQueryable<Users> GetAllUsers
         {
-            get { return this.entities.Uzytkownicy.Count(); }
-        }
-
-        public int NumberOfRoles
-        {
-            get { return this.entities.Uprawnienia.Count(); }
-        }
-
-        public int GetNewID() {
-            return entities.Uzytkownicy.Max(m => m.ID_uzytkownika); 
+            get { return from user in entities.Users select user; }
         }
  
-        public IQueryable<Uzytkownicy> GetAllUsers
+        public Users GetUser(int id)
         {
-            get { return from user in entities.Uzytkownicy select user; }
+            return entities.Users.SingleOrDefault(user => user.UserID == id);
         }
  
-        public Uzytkownicy GetUser(int id)
+        public Users GetUser(string userName)
         {
-            return entities.Uzytkownicy.SingleOrDefault(user => user.ID_uzytkownika == id);
+            return entities.Users.SingleOrDefault(user => user.Login == userName);
         }
  
-        public Uzytkownicy GetUser(string userName)
-        {
-            return entities.Uzytkownicy.SingleOrDefault(user => user.Login == userName);
-        }
- 
-        public IQueryable<Uzytkownicy> GetUsersForRole(string roleName)
+        public IQueryable<Users> GetUsersForRole(string roleName)
         {
             return GetUsersForRole(GetRole(roleName));
         }
  
-        public IQueryable<Uzytkownicy> GetUsersForRole(int id)
+        public IQueryable<Users> GetUsersForRole(int id)
         {
             return GetUsersForRole(GetRole(id));
         }
  
-        public IQueryable<Uzytkownicy> GetUsersForRole(Uprawnienia role)
+        public IQueryable<Users> GetUsersForRole(Dziennik_MVC.Models.Entities.Roles role)
         {
             if (!RoleExists(role))
                 throw new ArgumentException(MissingRole);
- 
-            return from user in entities.Uzytkownicy
-                   where user.Uprawnienia.ID_uprawnienia == role.ID_uprawnienia
+
+            return from user in entities.Users
+                   where user.Roles.RoleName == role.RoleName
                    orderby user.Login
                    select user;
         }
- 
-        public IQueryable<Uprawnienia> GetAllRoles()
+
+        public IQueryable<Entities.Roles> GetAllRoles
         {
-            return from role in entities.Uprawnienia
-                   orderby role.Nazwa_uprawnienia
-                   select role;
+            get {   return from role in entities.Roles orderby role.RoleName select role; }
         }
- 
-        public Uprawnienia GetRole(int id)
+
+        public Dziennik_MVC.Models.Entities.Roles GetRole(int id)
         {
-            return entities.Uprawnienia.SingleOrDefault(role => role.ID_uprawnienia == id);
+            return entities.Roles.SingleOrDefault(role => role.RoleID == id);
         }
- 
-        public Uprawnienia GetRole(string name)
+
+        public Dziennik_MVC.Models.Entities.Roles GetRole(string name)
         {
-            return entities.Uprawnienia.SingleOrDefault(role => role.Nazwa_uprawnienia == name);
+            return entities.Roles.SingleOrDefault(role => role.RoleName == name);
         }
- 
-        public Uprawnienia GetRoleForUser(string userName)
+
+        public Dziennik_MVC.Models.Entities.Roles GetRoleForUser(string userName)
         {
             return GetRoleForUser(GetUser(userName));
         }
- 
-        public Uprawnienia GetRoleForUser(int id)
+
+        public Dziennik_MVC.Models.Entities.Roles GetRoleForUser(int id)
         {
             return GetRoleForUser(GetUser(id));
         }
- 
-        public Uprawnienia GetRoleForUser(Uzytkownicy user)
+
+        public Dziennik_MVC.Models.Entities.Roles GetRoleForUser(Users user)
         {
             if (!UserExists(user))
                 throw new ArgumentException(MissingUser);
  
-            return user.Uprawnienia;
+            return user.Roles;
         }
  
-        public void AddUser(Uzytkownicy user)
+        public void AddUser(Users user)
         {
             if (UserExists(user))
                 throw new ArgumentException(TooManyUser);
  
-            entities.Uzytkownicy.Add(user);
+            entities.Users.Add(user);
         }
 
-        public void EditUser(Uzytkownicy user)
+        public void EditUser(Users user)
         {
             entities.Entry(user).State = EntityState.Modified;
         }
 
         public bool IsActive(string user) 
         {
-            return entities.Uzytkownicy.SingleOrDefault(x => x.Login == user).isActive;
+            return entities.Users.SingleOrDefault(x => x.Login == user).isActive;
         }        
  
-        public void DeleteUser(Uzytkownicy user)
+        public void DeleteUser(Users user)
         {
             if (!UserExists(user))
                 throw new ArgumentException(MissingUser);
  
-            entities.Uzytkownicy.Remove(user);
+            entities.Users.Remove(user);
         }
  
         public void DeleteUser(string userName)
         {
             DeleteUser(GetUser(userName));
         }
- 
-        public void AddRole(Uprawnienia role)
+
+        public void AddRole(Dziennik_MVC.Models.Entities.Roles role)
         {
             if (RoleExists(role))
                 throw new ArgumentException(TooManyRole);
  
-            entities.Uprawnienia.Add(role);
+            entities.Roles.Add(role);
         }
  
         public void AddRole(string roleName)
         {
-            Uprawnienia role = new Uprawnienia()
+            Dziennik_MVC.Models.Entities.Roles role = new Dziennik_MVC.Models.Entities.Roles()
             {
-                Nazwa_uprawnienia = roleName
+                RoleName = roleName
             };
  
             AddRole(role);
         }
- 
-        public void DeleteRole(Uprawnienia role)
+
+        public void DeleteRole(Dziennik_MVC.Models.Entities.Roles role)
         {
             if (!RoleExists(role))
                 throw new ArgumentException(MissingRole);
@@ -168,7 +152,7 @@ namespace Dziennik_MVC.Models.Data.Concrete
             if (GetUsersForRole(role).Count() > 0)
                 throw new ArgumentException(AssignedRole);
  
-            entities.Uprawnienia.Remove(role);
+            entities.Roles.Remove(role);
         }
  
         public void DeleteRole(string roleName)
@@ -181,20 +165,20 @@ namespace Dziennik_MVC.Models.Data.Concrete
             entities.SaveChanges();
         }
 
-        public bool UserExists(Uzytkownicy user)
+        public bool UserExists(Users user)
         {
             if (user == null)
                 return false;
  
-            return (entities.Uzytkownicy.SingleOrDefault(u => u.ID_uzytkownika == user.ID_uzytkownika || u.Login == user.Login) != null);
+            return (entities.Users.SingleOrDefault(u => u.UserID == user.UserID || u.Login == user.Login) != null);
         }
- 
-        public bool RoleExists(Uprawnienia role)
+
+        public bool RoleExists(Dziennik_MVC.Models.Entities.Roles role)
         {
             if (role == null)
                 return false;
  
-            return (entities.Uprawnienia.SingleOrDefault(r => r.ID_uprawnienia == role.ID_uprawnienia || r.Nazwa_uprawnienia == role.Nazwa_uprawnienia) != null);
+            return (entities.Roles.SingleOrDefault(r => r.RoleID == role.RoleID || r.RoleName == role.RoleName) != null);
         }
 
         public void Dispose() {

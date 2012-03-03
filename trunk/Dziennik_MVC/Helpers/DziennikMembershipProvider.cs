@@ -15,10 +15,10 @@ namespace Dziennik_MVC.Helpers
     public class DziennikMembershipProvider : MembershipProvider
     {
        
-        private UzytkownicyRepository repository { get; set; }
+        private UsersRepository repository { get; set; }
 
         public DziennikMembershipProvider() {
-            repository = new UzytkownicyRepository();
+            repository = new UsersRepository();
         }
 
         public override int MinRequiredPasswordLength
@@ -40,7 +40,7 @@ namespace Dziennik_MVC.Helpers
  
             string hash = FormsAuthentication.HashPasswordForStoringInConfigFile(password.Trim(), "md5");
  
-            return this.repository.GetAllUsers.Any(user => (user.Login == username.Trim()) && (user.Haslo == hash));
+            return this.repository.GetAllUsers.Any(user => (user.Login == username.Trim()) && (user.Password == hash));
         }
 
         public override bool ChangePassword(string username, string oldPassword, string newPassword)
@@ -48,10 +48,10 @@ namespace Dziennik_MVC.Helpers
             if (!ValidateUser(username, oldPassword) || string.IsNullOrEmpty(newPassword.Trim()))
                 return false;
  
-            Uzytkownicy user = repository.GetUser(username);
+            Users user = repository.GetUser(username);
             string hash = FormsAuthentication.HashPasswordForStoringInConfigFile(newPassword.Trim(), "md5");
  
-            user.Haslo = hash;
+            user.Password = hash;
             repository.Save();
  
             return true;

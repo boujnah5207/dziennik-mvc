@@ -6,13 +6,15 @@ using System.ComponentModel.DataAnnotations;
 
 namespace Dziennik_MVC.Models.Entities
 {
-    public class Semestry
+    public class Roles
     {
         [Key]
-        public int ID_semestru { get; set; }
-        public string Typ { get; set; }
-        public string Rok { get; set; }
+        [Required]
+        public int RoleID { get; set; }
 
-        public virtual ICollection<Grupy> Grupy { get; set; }
+        [Required]
+        public string RoleName { get; set; }
+
+        public ICollection<Users> Users { get; set; }
     }
 }
