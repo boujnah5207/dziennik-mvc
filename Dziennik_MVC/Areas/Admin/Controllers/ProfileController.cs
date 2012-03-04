@@ -11,11 +11,11 @@ using Dziennik_MVC.Models.Data.Abstract;
 
 namespace Dziennik_MVC.Areas.Admin.Controllers
 { 
-    public class AdminController : Controller
+    public class ProfileController : Controller
     {
         private IUsersRepository _repo;
 
-        public AdminController(IUsersRepository repo) 
+        public ProfileController(IUsersRepository repo) 
         {
             _repo = repo;
         }

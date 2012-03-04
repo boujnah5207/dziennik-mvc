@@ -31,7 +31,7 @@ namespace Dziennik_MVC.Controllers
             if (Request.IsAuthenticated && (User.IsInRole("Admin") || (User.IsInRole("Wykladowca") || (User.IsInRole("Student"))))) // Jesli ktoś jest zalogowany i chce sie ponownie zalogować
                 return RedirectToRoute("Admin_default", new { 
                 
-                    controller = "Admin",
+                    controller = "Profile",
                     action = "Profile"
                 
                 });                                              // to odeślij to profilu
@@ -59,7 +59,7 @@ namespace Dziennik_MVC.Controllers
                                 return RedirectToRoute("Admin_default", new
                                 {
 
-                                    controller = "Admin",
+                                    controller = "Profile",
                                     action = "Profile"
 
                                 });
