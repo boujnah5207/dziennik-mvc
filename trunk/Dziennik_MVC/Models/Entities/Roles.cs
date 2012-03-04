@@ -15,6 +15,6 @@ namespace Dziennik_MVC.Models.Entities
         [Required]
         public string RoleName { get; set; }
 
-        public ICollection<Users> Users { get; set; }
+        public virtual ICollection<Users> Users { get; set; }
     }
 }

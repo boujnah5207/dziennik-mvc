@@ -15,7 +15,7 @@ namespace Dziennik_MVC.Models.Entities
         [Display(Name="Nazwa grupy")]
         public string GroupName { get; set; }
 
-        public Semesters Semesters { get; set; }
-        public ICollection<Courses> Courses { get; set; }
+        public virtual Semesters Semesters { get; set; }
+        public virtual ICollection<Courses> Courses { get; set; }
     }
 }
