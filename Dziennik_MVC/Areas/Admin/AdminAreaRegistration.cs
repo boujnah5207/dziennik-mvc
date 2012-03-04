@@ -15,13 +15,20 @@ namespace Dziennik_MVC.Areas.Admin
         public override void RegisterArea(AreaRegistrationContext context)
         {
             context.MapRoute(
-                "EditProfile",
-                "Profile/Edit/{id}",
-                new { controller = "Admin", action = "Edit" }
+                "Grops",
+                "Admin/Groups/{action}",
+                new { controller = "Groups", action = "List" }
             );
+
             context.MapRoute(
-                "Profile",
-                "Profile/{login}",
+                "Semesters",
+                "Admin/Semesters/{action}",
+                new { controller = "Semesters", action = "List" }
+            );
+           
+            context.MapRoute(
+                "Admin_default",
+                "Admin/Profile/{action}",
                 new { controller = "Admin", action = "Profile" }
             );
         }

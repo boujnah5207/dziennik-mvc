@@ -21,27 +21,27 @@ namespace Dziennik_MVC.Areas.Admin.Controllers
         }
 
         //
-        // GET: Profile/{login}
+        // GET: Admin/Profile
 
         [Authorize(Roles = "Admin")]  // Akcja odpowiedzialna za wyświetlenie profilu Admina/Wykladowcy
-        public ViewResult Profile(string login ) {
+        public ViewResult Profile() {
             
-            ViewBag.Current = "Profile";    // Aktyalne zaznaczenie zakladki Profil w Menu 
+            ViewBag.Current = "Profile";    // Aktualne zaznaczenie zakladki Profil w Menu 
 
-            var user = _repo.GetUser(login) as Admins;
+            var user = _repo.GetUser(User.Identity.Name) as Admins;
 
             return View(user);
         }
        
         //
-        // GET: /Profile/Edit/1
+        // GET: /Admin/Edit/1
  
         public ActionResult Edit(int id)
         {
             Admins user = _repo.GetUser(id) as Admins;
 
             ViewBag.ListaUprawnien = new SelectList(_repo.GetAllRoles, "RoleID", "RoleName", user.UserID); // Lista Uprawnien
-            ViewBag.Current = "Profile";  // Aktyalne zaznaczenie zakladki Profil w Menu 
+            ViewBag.Current = "Profile";  // Aktualne zaznaczenie zakladki Profil w Menu 
            
 
             return View(user);
@@ -59,7 +59,7 @@ namespace Dziennik_MVC.Areas.Admin.Controllers
                 _repo.EditUser(user);
                 _repo.Save();
                 TempData["message"] = "Zauktalizowano twój profil!";
-                return RedirectToRoute("Profile", new { login = user.Login });
+                return RedirectToRoute("Admin_default", new { action = "Profile" });
             }
             ViewBag.ListaUprawnien = new SelectList(_repo.GetAllRoles, "RoleID", "RoleName", user.UserID);
             return View();

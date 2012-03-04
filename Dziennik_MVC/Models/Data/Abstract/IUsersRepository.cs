@@ -40,9 +40,9 @@ namespace Dziennik_MVC.Models.Data.Abstract
         bool UserExists(Users user);
         bool RoleExists(Roles role);
 
-        void Save();
-        
         bool IsActive(string user);
+
+        void Save();
         void Dispose();
     }
 }

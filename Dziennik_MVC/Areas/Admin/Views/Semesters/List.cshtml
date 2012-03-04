@@ -1,0 +1,107 @@
+﻿@model PagedList.IPagedList<Dziennik_MVC.Models.Entities.Semesters>
+
+@{
+    ViewBag.Title = "Lista semestrów";
+    Layout = "~/Areas/Admin/Views/Shared/_AdminLayout.cshtml";
+}
+
+<div class="pageTitle">
+    <h2>Akutalna lista semestrów</h2>
+</div>
+
+
+<div class="user">
+<div class="userImage"></div>
+<p>
+    @Html.ActionLink("Dodaj nowy", "Add")
+</p>
+</div>
+
+<table>
+    <tr>
+        <th>
+            @Html.ActionLink("Typ semestru", "List", new { sortOrder = ViewBag.TypeSortParm })
+
+            @if (ViewBag.CurrentSort == "Type asc")
+            {
+             @:<div class="sorting">
+              @:↑
+             @:</div>
+            }
+            @if (ViewBag.CurrentSort == "Type desc")
+            { 
+              @:<div class="sorting">
+              @:↓
+              @:</div>
+            }
+           
+            
+        </th>
+        <th>
+            @Html.ActionLink("Rocznik", "List", new { sortOrder = ViewBag.YearSortParm })
+           
+            @if (ViewBag.CurrentSort == "Year asc")
+            {
+             @:<div class="sorting">   
+             @:↑
+             @:</div>
+            }
+            @if (ViewBag.CurrentSort == "Year desc")
+            { 
+              @:<div class="sorting">
+              @:↓
+              @:</div>
+            }
+            
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model)
+{
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.Type)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Year)
+        </td>
+        <td>
+            @Html.ActionLink("Edytuj", "Edit", new { id = item.SemesterID }) |
+            @Html.ActionLink("Usuń", "Delete", new { id = item.SemesterID })
+        </td>
+    </tr>
+}
+
+</table>
+
+<div class="pager">
+    Strona @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber)
+    z @Model.PageCount
+     
+    @if (Model.HasPreviousPage)
+    {
+        @Html.ActionLink("<<", "List", new { page = 1, sortOrder = ViewBag.CurrentSort })
+        @Html.Raw(" ");
+        @Html.ActionLink("< Poprzednia", "List", new { page = Model.PageNumber - 1, sortOrder = ViewBag.CurrentSort })
+    }
+    else
+    {
+        @:<<
+        @Html.Raw(" ");
+        @:< Poprzednia
+    }
+     
+    @if (Model.HasNextPage)
+    {
+        @Html.ActionLink("Następna >", "List", new { page = Model.PageNumber + 1, sortOrder = ViewBag.CurrentSort })
+        @Html.Raw(" ");
+        @Html.ActionLink(">>", "List", new { page = Model.PageCount, sortOrder = ViewBag.CurrentSort })
+    }
+    else
+    {
+        @:Następna >
+        @Html.Raw(" ")
+        @:>>
+    }
+</div>

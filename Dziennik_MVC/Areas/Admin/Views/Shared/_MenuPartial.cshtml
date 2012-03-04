@@ -2,12 +2,19 @@
 @if(@ViewBag.Current == "Profile")
 {
     <li class="current">@Html.ActionLink("Profil", "Profile", "Admin")</li>
-    <li>@Html.ActionLink("Uzytkownicy", "Index", "Users")</li>
+    <li>@Html.ActionLink("Grupy", "List", "Groups")</li>
+    <li>@Html.ActionLink("Semestry", "List", "Semesters")</li>
 }
-@if (@ViewBag.Current == "Uzytkownicy")
+@if (@ViewBag.Current == "Semestry")
 {
-    <li>@Html.ActionLink("Strona główna", "Welcome", "Home")</li>   
-    <li class="current">@Html.ActionLink("Uzytkownicy", "Index", "Users")</li>
-
+    <li >@Html.ActionLink("Profil", "Profile", "Admin")</li>
+    <li>@Html.ActionLink("Grupy", "List", "Groups")</li>
+    <li class="current">@Html.ActionLink("Semestry", "List", "Semesters")</li>
 }
-
+}
+@if (@ViewBag.Current == "Grupy")
+{
+    <li>@Html.ActionLink("Profil", "Profile", "Admin")</li>
+    <li class="current">@Html.ActionLink("Grupy", "List", "Groups")</li>
+    <li>@Html.ActionLink("Semestry", "List", "Semesters")</li>
+}

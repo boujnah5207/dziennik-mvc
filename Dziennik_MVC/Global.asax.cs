@@ -31,7 +31,7 @@ namespace Dziennik_MVC
             routes.IgnoreRoute("{resource}.axd/{*pathInfo}");
 
             routes.MapRoute(
-                "Default", // Route name
+                "default", // Route name
                 "{controller}/{action}/{id}", // URL with parameters
                 new { controller = "Account", action = "LogOn", id = UrlParameter.Optional},
                 new[] { "Dziennik_MVC.Controllers"}
@@ -50,6 +50,7 @@ namespace Dziennik_MVC
         {
             base.OnApplicationStarted();
             Database.SetInitializer(new Dziennik_MVC.Models.Data.Concrete.EFContext.EFContextInitializer());
+            DefaultModelBinder.ResourceClassKey = "datavalidation";
             
 
             AreaRegistration.RegisterAllAreas();
@@ -60,8 +61,7 @@ namespace Dziennik_MVC
         private static void RegisterServices(IKernel kernel)
         {
             kernel.Bind<IUsersRepository>().To<UsersRepository>().InRequestScope();
-            //kernel.Inject(Membership.Provider);
-           // kernel.Inject(Roles.Provider);     
+            kernel.Bind<ISemestersRepository>().To<SemestersRepository>().InRequestScope();
         }
     }
 }

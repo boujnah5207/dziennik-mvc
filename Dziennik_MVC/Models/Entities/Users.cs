@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.ComponentModel.DataAnnotations;
 using DataAnnotationsExtensions;
+using Resources;
 
 namespace Dziennik_MVC.Models.Entities
 {
@@ -28,19 +29,21 @@ namespace Dziennik_MVC.Models.Entities
         [DisplayFormat(DataFormatString = "{0:d}", ApplyFormatInEditMode = true)]
         public DateTime CreationDate { get; set; }
 
-        [Required(ErrorMessage="Data urodzenia jest wymagana")]
+        [Required(ErrorMessageResourceName = "PropertyValueInvalid",ErrorMessageResourceType=typeof(datavalidation))]
         [DisplayFormat(DataFormatString = "{0:d}", ApplyFormatInEditMode = true)]
-        [DataType(DataType.Date)]
+        [Display(Name = "Data urodzenia")]
         public DateTime BirthDay { get; set; }
 
         [Display(Name = "Aktywny")]
         public bool isActive { get; set; }
 
         [Required]
+        [Display(Name= "Imię")]
         [StringLength(50, ErrorMessage = "{0} musi być co najmniej {2} znaków długości.", MinimumLength = 3)]
         public string FirstName { get; set; }
 
         [Required]
+        [Display(Name = "Nazwisko")]
         [StringLength(50, ErrorMessage = "{0} musi być co najmniej {2} znaków długości.", MinimumLength = 2)]
         public string LastName { get; set; }
 
