@@ -1,0 +1,27 @@
+﻿@model Dziennik_MVC.Models.Entities.Semesters
+
+@{
+    ViewBag.Title = "Usuwanie semestru";
+    Layout = "~/Areas/Admin/Views/Shared/_AdminLayout.cshtml";
+}
+@using (Html.BeginForm()) {
+<fieldset>
+    <legend>Usuwanie semestru</legend>
+    <p></p>
+    <div class="display-label">Typ</div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.Type)
+    </div>
+
+    <div class="display-label">Rocznik</div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.Year)
+    </div>
+    <input type="submit" value="Delete" /> 
+</fieldset>
+}
+    <p>
+        
+        @Html.ActionLink("Lista semestrów", "List")
+    </p>
+

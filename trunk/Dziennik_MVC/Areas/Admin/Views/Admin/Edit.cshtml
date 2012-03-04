@@ -1,7 +1,7 @@
 ﻿@model Dziennik_MVC.Models.Entities.Admins
 
 @{
-    ViewBag.Title = "Edit";
+    ViewBag.Title = "Edycja profilu";
     Layout = "~/Areas/Admin/Views/Shared/_AdminLayout.cshtml";
 }
 <script src="@Url.Content("~/Scripts/jquery.validate.min.js")" type="text/javascript"></script>
@@ -70,7 +70,7 @@
         </p>
     </fieldset>
     <div>
-         @Html.ActionLink("wróć do Profilu", "Profile", new { login = User.Identity.Name })
+         @Html.ActionLink("wróć do Profilu", "Profile")
     </div>
 }
 

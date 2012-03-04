@@ -28,8 +28,13 @@ namespace Dziennik_MVC.Controllers
 
         public ActionResult LogOn()
         {
-            if (Request.IsAuthenticated && (User.IsInRole("Admin") || (User.IsInRole("Wykladowca") || (User.IsInRole("Student")))))
-                return RedirectToRoute("Profile", new { login = User.Identity.Name });
+            if (Request.IsAuthenticated && (User.IsInRole("Admin") || (User.IsInRole("Wykladowca") || (User.IsInRole("Student"))))) // Jesli ktoś jest zalogowany i chce sie ponownie zalogować
+                return RedirectToRoute("Admin_default", new { 
+                
+                    controller = "Admin",
+                    action = "Profile"
+                
+                });                                              // to odeślij to profilu
 
             return View();
         }
@@ -51,9 +56,12 @@ namespace Dziennik_MVC.Controllers
                         else
                         {
                             if (AuthorizationService.IsUserInRole(model.UserName, "Admin")) { // Jeśli zalogował się admin to przenieś do jego View
-                                return RedirectToRoute("Profile", new
+                                return RedirectToRoute("Admin_default", new
                                 {
-                                    login = model.UserName
+
+                                    controller = "Admin",
+                                    action = "Profile"
+
                                 });
                             }
                             return RedirectToAction("Index", "Home");
