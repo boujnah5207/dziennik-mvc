@@ -28,7 +28,7 @@ namespace Dziennik_MVC.Areas.Admin.Controllers
         public ViewResult List(string sortOrder, int? page)
         {
             ViewBag.Current = "Semestry";    // Aktualne zaznaczenie zakladki Profil w Menu 
-            ViewBag.CurrentSort = sortOrder;
+            ViewBag.CurrentSort = sortOrder;    // Zachowanie sortowania pomiędzy przejściami stron
             ViewBag.TypeSortParm = sortOrder == "Type asc" ? "Type desc" : "Type asc";
             ViewBag.YearSortParm = sortOrder == "Year asc" ? "Year desc" : "Year asc";
 
@@ -53,8 +53,8 @@ namespace Dziennik_MVC.Areas.Admin.Controllers
                     break;
             }
 
-            int pageSize = 3;
-            int pageNumber = (page ?? 1);
+            int pageSize = 10;
+            int pageNumber = (page ?? 1); // Jeśli page == null to page =1
 
             return View(semesters.ToPagedList(pageNumber, pageSize));
         }

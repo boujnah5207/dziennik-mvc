@@ -23,7 +23,7 @@ namespace Dziennik_MVC.Areas.Admin.Controllers
         //
         // GET: Admin/Profile
 
-        [Authorize(Roles = "Admin")]  // Akcja odpowiedzialna za wyświetlenie profilu Admina/Wykladowcy
+        [Authorize(Roles = "Admin")]  // Akcja odpowiedzialna za wyświetlenie profilu Admina
         public ViewResult Profile() {
             
             ViewBag.Current = "Profile";    // Aktualne zaznaczenie zakladki Profil w Menu 
@@ -36,7 +36,7 @@ namespace Dziennik_MVC.Areas.Admin.Controllers
         //
         // GET: /Admin/Edit/1
  
-        public ActionResult Edit(int id)
+        public ViewResult Edit(int id)
         {
             Admins user = _repo.GetUser(id) as Admins;
 
@@ -62,7 +62,7 @@ namespace Dziennik_MVC.Areas.Admin.Controllers
                 return RedirectToRoute("Admin_default", new { action = "Profile" });
             }
             ViewBag.ListaUprawnien = new SelectList(_repo.GetAllRoles, "RoleID", "RoleName", user.UserID);
-            return View();
+            return View(user);
         }
                
         protected override void Dispose(bool disposing)
