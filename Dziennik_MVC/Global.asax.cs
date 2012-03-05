@@ -5,7 +5,6 @@ using System.Web;
 using System.Web.Mvc;
 using System.Web.Routing;
 using Ninject.Web.Mvc;
-using Ninject;
 using System.Web.Security;
 using Dziennik_MVC.Models.Data.Abstract;
 using Dziennik_MVC.Models.Data.Concrete;

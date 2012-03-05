@@ -33,6 +33,7 @@ namespace Dziennik_MVC.Controllers
                 
                     controller = "Profile",
                     action = "Profile"
+                   
                 
                 });                                              // to odeślij to profilu
 
@@ -61,6 +62,7 @@ namespace Dziennik_MVC.Controllers
 
                                     controller = "Profile",
                                     action = "Profile"
+                                    
 
                                 });
                             }
