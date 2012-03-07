@@ -23,7 +23,7 @@ namespace Dziennik_MVC.Areas.Admin.Controllers
         //
         // GET: Admin/Profile
 
-        [Authorize(Roles = "Admin")]  // Akcja odpowiedzialna za wyświetlenie profilu Admina
+        [Authorize(Roles = "Admin")] 
         public ViewResult Profile() {
             
             ViewBag.Current = "Profile";    // Aktualne zaznaczenie zakladki Profil w Menu 
@@ -58,10 +58,11 @@ namespace Dziennik_MVC.Areas.Admin.Controllers
             {
                 _repo.EditUser(user);
                 _repo.Save();
-                TempData["message"] = "Zauktalizowano twój profil!";
+                TempData["message"] = "Zauktalizowano twój profil!";                     // wiadomość w _AdminLayout
                 return RedirectToRoute("Admin_default", new { action = "Profile" });
             }
-            ViewBag.ListaUprawnien = new SelectList(_repo.GetAllRoles, "RoleID", "RoleName", user.UserID);
+            ViewBag.ListaUprawnien = new SelectList(_repo.GetAllRoles, "RoleID", "RoleName", user.UserID);      // Lista
+            TempData["message"] = "Nie udało się zaktualizować twojego profilu!";                                   // wiadomość w _AdminLayout
             return View(user);
         }
                
