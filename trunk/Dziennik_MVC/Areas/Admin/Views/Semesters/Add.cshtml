@@ -14,8 +14,11 @@
         <legend>Dodaj semestr</legend>
 
         <div class="editor">
-            @Html.LabelFor(model => model.Type)        
-            @Html.EditorFor(model => model.Type)
+            @Html.LabelFor(model => model.Type)
+            @Html.DropDownListFor(model => model.Type, new[]{
+                new SelectListItem() { Text = "letni", Value = "letni" },
+                new SelectListItem() { Text = "zimowy", Value = "zimowy" }
+            })
             @Html.ValidationMessageFor(model => model.Type)
         </div>
 
@@ -26,7 +29,7 @@
         </div>
 
         <p>
-            <input type="submit" value="Create" />
+            <input type="submit" value="Dodaj" />
         </p>
     </fieldset>
 }

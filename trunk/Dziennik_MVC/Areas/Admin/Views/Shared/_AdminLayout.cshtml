@@ -31,10 +31,20 @@
     </div>
     <div id="site_content">  
       <div id="content">
-        @if (TempData["message"] != null) {
-            <br />
-            <div class="Message">@TempData["message"]</div>
-            <br />
+        @if (TempData["message"] != null)
+        {
+            if (TempData["status"] == "valid")
+            {
+                <br />
+                <div class="Valid">@TempData["message"]</div>
+                <br />
+            }
+             if (TempData["status"] == "invalid")
+             {
+                <br />
+                <div class="InValid">@TempData["message"]</div>
+                <br />
+             }
         }
         @RenderBody()
       </div>

@@ -17,7 +17,10 @@
 
         <div class="editor">
             @Html.LabelFor(model => model.Type)   
-            @Html.EditorFor(model => model.Type)
+            @Html.DropDownListFor(model => model.Type, new[]{
+                new SelectListItem() { Text = "letni", Value = "letni" },
+                new SelectListItem() { Text = "zimowy", Value = "zimowy" }
+            })
             @Html.ValidationMessageFor(model => model.Type)
         </div>
 
@@ -27,7 +30,7 @@
             @Html.ValidationMessageFor(model => model.Year)
         </div>
         <p>
-            <input type="submit" value="Save" />
+            <input type="submit" value="Zapisz zmiany" />
         </p>
     </fieldset>
 }
