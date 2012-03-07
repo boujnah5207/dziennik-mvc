@@ -63,6 +63,7 @@ namespace Dziennik_MVC.Areas.Admin.Controllers
 
         public ActionResult Add()
         {
+            ViewBag.Current = "Semestry";
             return View();
         } 
 
@@ -72,14 +73,20 @@ namespace Dziennik_MVC.Areas.Admin.Controllers
         [HttpPost]
         public ActionResult Add(Semesters semesters)
         {
-            if (ModelState.IsValid)
-            {
-                _repo.AddSemester(semesters);
-                _repo.Save();
-                TempData["message"] = "Pomyślnie dodano nowy semestr!";
-                return RedirectToAction("List");  
-            }
+            var result = _repo.GetAllSemesters.Where(m => m.Type == semesters.Type && m.Year == semesters.Year);            
 
+            if (result.Count() == 0 )
+                if (ModelState.IsValid)
+                {
+                    _repo.AddSemester(semesters);
+                    _repo.Save();
+                    TempData["message"] = "Pomyślnie dodano nowy semestr!";
+                    TempData["status"] = "valid";
+                 return RedirectToAction("List");  
+                }
+            TempData["message"] = "Nie udało się dodać semestru! Taki semestr istnieje!";
+            TempData["status"] = "invalid";
+            ViewBag.Current = "Semestry";
             return View(semesters);
         }
         
@@ -88,6 +95,7 @@ namespace Dziennik_MVC.Areas.Admin.Controllers
  
         public ActionResult Edit(int id)
         {
+            ViewBag.Current = "Semestry";
             Semesters semesters = _repo.GetSemesterByID(id);
             return View(semesters);
         }
@@ -98,13 +106,21 @@ namespace Dziennik_MVC.Areas.Admin.Controllers
         [HttpPost]
         public ActionResult Edit(Semesters semesters)
         {
-            if (ModelState.IsValid)
-            {
+            var result = _repo.GetAllSemesters.Where(m=>m.Type == semesters.Type && m.Year == semesters.Year);
+
+
+            if (result.Count() == 0 || (result.Where(m => m.SemesterID == semesters.SemesterID).Count() == 1))
+               if (ModelState.IsValid){
+            
                 _repo.EditSemester(semesters);
                 _repo.Save();
                 TempData["message"] = "Zauktalizowano semestr!";
+                TempData["status"] = "valid";
                 return RedirectToAction("List");
-            }
+                }
+           TempData["message"] = "Nie udało się uaktualnić semestru! Taki semestr istnieje!";
+           TempData["status"] = "invalid";
+           ViewBag.Current = "Semestry";
             return View(semesters);
         }
 
@@ -113,6 +129,7 @@ namespace Dziennik_MVC.Areas.Admin.Controllers
  
         public ActionResult Delete(int id)
         {
+            ViewBag.Current = "Semestry";
             Semesters semesters = _repo.GetSemesterByID(id);
             return View(semesters);
         }
@@ -127,6 +144,7 @@ namespace Dziennik_MVC.Areas.Admin.Controllers
             _repo.DeleteSemester(semesters);
             _repo.Save();
             TempData["message"] = "Usunięto semestr!";
+            TempData["status"] = "valid";
             return RedirectToAction("List");
         }
 

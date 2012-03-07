@@ -11,12 +11,13 @@ namespace Dziennik_MVC.Models.Entities
         [Key]
         public int SemesterID { get; set; }
 
-        [Display(Name="Typ semestru")]
+        [Display(Name="Semestr")]
         [Required(ErrorMessage="Pole wymagane!")]
         public string Type { get; set; }
 
-        [Display(Name = "Rok")]
+        [Display(Name = "Rok akademicki")]
         [Required(ErrorMessage = "Pole wymagane!")]
+        [RegularExpression(@"^(19|20)\d\d[- /.](19|20)\d\d$", ErrorMessage = "Poprawny format to YYYY/YYYY")]
         public string Year { get; set; }
 
         public virtual ICollection<Groups> Groups { get; set; }
