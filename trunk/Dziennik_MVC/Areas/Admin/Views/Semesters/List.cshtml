@@ -9,11 +9,10 @@
     <h2>Akutalna lista semestrów</h2>
 </div>
 
-
 <div class="user">
 <div class="userImage"></div>
 <p>
-    @Html.ActionLink("Dodaj nowy", "Add")
+    @Html.ActionLink("Dodaj Semestr", "Add")
 </p>
 </div>
 
@@ -33,9 +32,7 @@
               @:<div class="sorting">
               @:↓
               @:</div>
-            }
-           
-            
+            }            
         </th>
         <th>
             @Html.ActionLink("Rocznik", "List", new { sortOrder = ViewBag.YearSortParm })
@@ -52,7 +49,6 @@
               @:↓
               @:</div>
             }
-            
         </th>
         <th></th>
     </tr>

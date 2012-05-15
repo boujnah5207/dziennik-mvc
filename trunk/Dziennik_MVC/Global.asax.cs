@@ -61,6 +61,7 @@ namespace Dziennik_MVC
         {
             kernel.Bind<IUsersRepository>().To<UsersRepository>().InRequestScope();
             kernel.Bind<ISemestersRepository>().To<SemestersRepository>().InRequestScope();
+            kernel.Bind<IGroupsRepository>().To<GroupsRepository>().InRequestScope();
         }
     }
 }
