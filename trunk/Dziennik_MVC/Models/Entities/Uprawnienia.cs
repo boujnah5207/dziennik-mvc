@@ -6,15 +6,15 @@ using System.ComponentModel.DataAnnotations;
 
 namespace Dziennik_MVC.Models.Entities
 {
-    public class Roles
+    public class Uprawnienia
     {
         [Key]
         [Required]
-        public int RoleID { get; set; }
+        public int id_uprawnienia { get; set; }
 
         [Required]
-        public string RoleName { get; set; }
+        public string nazwa_uprawnienia { get; set; }
 
-        public virtual ICollection<Users> Users { get; set; }
+        public virtual ICollection<Uzytkownicy> Uzytkownicy { get; set; }
     }
 }

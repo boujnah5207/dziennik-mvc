@@ -15,15 +15,15 @@ namespace Dziennik_MVC.Models.Data.Concrete
         
         }
 
-        public DbSet<Dziennik_MVC.Models.Entities.Roles> Roles { get; set; }
-        public DbSet<Users> Users { get; set; }
-        public DbSet<Grades> Grades { get; set; }
-        public DbSet<Groups> Groups { get; set; }
-        public DbSet<Projects> Projects { get; set; }
-        public DbSet<Courses> Courses { get; set; }
-        public DbSet<Semesters> Semesters { get; set; }
-        public DbSet<Students> Students { get; set; }
-        public DbSet<Teachers> Teachers { get; set; }
+        public DbSet<Uprawnienia> Uprawnienia { get; set; }
+        public DbSet<Uzytkownicy> Uzytkownicy { get; set; }
+        public DbSet<Oceny> Oceny { get; set; }
+        public DbSet<Grupy> Grupy { get; set; }
+        public DbSet<Projekty> Projekty { get; set; }
+        public DbSet<Przedmioty> Przedmioty { get; set; }
+        public DbSet<Studenci> Studenci { get; set; }
+        public DbSet<Semestry> Semestry { get; set; }
+        public DbSet<Wykladowcy> Wykladowcy { get; set; }
 
         public void Save()
         {
@@ -40,36 +40,34 @@ namespace Dziennik_MVC.Models.Data.Concrete
             protected override void Seed(EFContext context)
             {
 
-                var role = new Dziennik_MVC.Models.Entities.Roles
+                var role = new Uprawnienia
                 {
-                    RoleName = "Admin",                    
+                    nazwa_uprawnienia = "Admin",                    
                 };
 
-                var role1 = new Dziennik_MVC.Models.Entities.Roles
+                var role1 = new Uprawnienia
                 {
-                    RoleName = "Wykladowca",
+                    nazwa_uprawnienia = "Wykladowca",
                 };
-                var role2 = new Dziennik_MVC.Models.Entities.Roles
+                var role2 = new Uprawnienia
                 {
-                    RoleName = "Student",
+                    nazwa_uprawnienia = "Student",
                 };
 
-                context.Roles.Add(role);
-                context.Roles.Add(role1);
-                context.Roles.Add(role2);
+                context.Uprawnienia.Add(role);
+                context.Uprawnienia.Add(role1);
+                context.Uprawnienia.Add(role2);
 
-                context.Users.Add(
-                    new Admins
+                context.Uzytkownicy.Add(
+                    new Administrator
                     {
-                        Login = "Admin",
-                        Password = FormsAuthentication.HashPasswordForStoringInConfigFile("wildchild", "md5"),
-                        CreationDate = DateTime.Now,
-                        FirstName = "Adam",
-                        LastName = "Skubicha",
-                        BirthDay = new DateTime(1987,1,25),
-                        isActive = true,
-                        Email = "mvaddib@gmail.com",
-                        RoleID = 1                        
+                        login = "Admin",
+                        haslo = FormsAuthentication.HashPasswordForStoringInConfigFile("wildchild", "md5"),                        
+                        imie = "Adam",
+                        nazwisko = "Skubicha",
+                        aktywny = true,
+                        email = "mvaddib@gmail.com",
+                        id_uprawnienia = 1                        
 
                     });
             }

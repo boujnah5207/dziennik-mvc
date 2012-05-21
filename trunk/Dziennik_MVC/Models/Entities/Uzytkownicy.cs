@@ -8,51 +8,45 @@ using Resources;
 
 namespace Dziennik_MVC.Models.Entities
 {
-    public abstract class Users
+    public abstract class Uzytkownicy
     {
-        public Users() { 
+        public Uzytkownicy() { 
         }
         [Key, DatabaseGenerated(DatabaseGeneratedOption.Identity)]
-        public int UserID { get; set; }
+        public int id_uzytkownika { get; set; }
 
         [Required]
         [StringLength(50, ErrorMessage = "{0} musi być co najmniej {2} znaków długości.", MinimumLength = 4)]
         [RegularExpression(@"^[a-zA-Z0-9_.]*$", ErrorMessage = "Błędny login. Login powinien mieć maksymalnie 50 znaków (male i duże litery oraz cyfry) ")]
-        public string Login { get; set; }
+        [Display(Name = "Login")]
+        public string login { get; set; }
 
         [Required]
+        [Display(Name = "Hasło")]
         [DataType(DataType.Password)]
         [StringLength(100, ErrorMessage = "{0} musi być co najmniej {2} znaków długości.", MinimumLength = 6)]
-        public string Password { get; set; }
-
-        [Required]
-        [DisplayFormat(DataFormatString = "{0:d}", ApplyFormatInEditMode = true)]
-        public DateTime CreationDate { get; set; }
-
-        [Required(ErrorMessageResourceName = "PropertyValueInvalid",ErrorMessageResourceType=typeof(datavalidation))]
-        [DisplayFormat(DataFormatString = "{0:d}", ApplyFormatInEditMode = true)]
-        [Display(Name = "Data urodzenia")]
-        public DateTime BirthDay { get; set; }
+        public string haslo { get; set; }
 
         [Display(Name = "Aktywny")]
-        public bool isActive { get; set; }
+        public bool aktywny { get; set; }
 
         [Required]
         [Display(Name= "Imię")]
         [StringLength(50, ErrorMessage = "{0} musi być co najmniej {2} znaków długości.", MinimumLength = 3)]
-        public string FirstName { get; set; }
+        public string imie { get; set; }
 
         [Required]
         [Display(Name = "Nazwisko")]
         [StringLength(50, ErrorMessage = "{0} musi być co najmniej {2} znaków długości.", MinimumLength = 2)]
-        public string LastName { get; set; }
+        public string nazwisko { get; set; }
 
         [Required]
         [Email(ErrorMessage = "To nie jest poprawny adres email!")]
-        public string Email { get; set; }
+        [Display(Name = "Email")]
+        public string email { get; set; }
 
-        public int RoleID { get; set; }
+        public int id_uprawnienia { get; set; }
 
-        public virtual Roles Roles { get; set; }
+        public virtual Uprawnienia Uprawnienia { get; set; }
     }
 }

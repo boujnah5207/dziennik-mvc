@@ -3,8 +3,6 @@ Microsoft Visual Studio Solution File, Format Version 11.00
 # Visual Studio 2010
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Dziennik_MVC", "Dziennik_MVC\Dziennik_MVC.csproj", "{DD058934-9D9A-4CAE-81B3-DB2D604DFCB3}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Dziennik_MVC.Tests", "Dziennik_MVC.Tests\Dziennik_MVC.Tests.csproj", "{7BDA281A-53C7-4F79-A4DE-8B600C1A8DE7}"
-EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{12272C49-9EFA-4016-AF17-5C98BC1CF3FD}"
 	ProjectSection(SolutionItems) = preProject
 		Dziennik_MVC.vsmdi = Dziennik_MVC.vsmdi
@@ -32,10 +30,6 @@ Global
 		{DD058934-9D9A-4CAE-81B3-DB2D604DFCB3}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{DD058934-9D9A-4CAE-81B3-DB2D604DFCB3}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{DD058934-9D9A-4CAE-81B3-DB2D604DFCB3}.Release|Any CPU.Build.0 = Release|Any CPU
-		{7BDA281A-53C7-4F79-A4DE-8B600C1A8DE7}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{7BDA281A-53C7-4F79-A4DE-8B600C1A8DE7}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{7BDA281A-53C7-4F79-A4DE-8B600C1A8DE7}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{7BDA281A-53C7-4F79-A4DE-8B600C1A8DE7}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

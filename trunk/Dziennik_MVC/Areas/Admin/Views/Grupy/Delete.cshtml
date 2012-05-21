@@ -1,0 +1,21 @@
+﻿@model Dziennik_MVC.Models.Entities.Grupy
+
+@{
+    ViewBag.Title = "Usuwanie grupy";
+    Layout = "~/Areas/Admin/Views/Shared/_AdminLayout.cshtml";
+}
+@using (Html.BeginForm()) {
+<fieldset>
+    <legend>Usuwanie grupy</legend>
+    <p></p>
+    <div class="display-label">Nazwa Grupy</div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.nazwa_grupy)
+    </div>
+    <input type="submit" value="Usuń" /> 
+</fieldset>
+}
+    <p>        
+        @Html.ActionLink("powrót do listy grup", "List")
+    </p>
+

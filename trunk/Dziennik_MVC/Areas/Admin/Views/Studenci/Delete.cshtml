@@ -1,35 +1,20 @@
-﻿@model Dziennik_MVC.Models.Entities.Administrator
+﻿@model Dziennik_MVC.Models.Entities.Studenci
 
 @{
-    ViewBag.Title = "Profile";
+    ViewBag.Title = "Usuwanie Studenta";
+
     Layout = "~/Areas/Admin/Views/Shared/_AdminLayout.cshtml";
 }
-
+@using (Html.BeginForm()) {
 <fieldset>
-    <legend>Twoje konto</legend>
+    <legend>Usuń studenta</legend>
 
-    <table>
-    
-    </table>
-
-    <div class="display">
     <div class="display-label">Login</div>
     <div class="display-field">
         @Html.DisplayFor(model => model.login)
     </div>
 
-    <div class="display-label">Konto</div>
-    <div class="display-field">
-        @if (Model.aktywny){
-             @:Aktywne 
-        }
-        else {
-             @:Nieaktywne
-        }
-        
-    </div>
-
-    <div class="display-label">Imie</div>
+    <div class="display-label">Imię</div>
     <div class="display-field">
         @Html.DisplayFor(model => model.imie)
     </div>
@@ -44,12 +29,18 @@
         @Html.DisplayFor(model => model.email)
     </div>
 
+    <div class="display-label">Nr. Indeksu</div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.nr_indeksu)
+    </div>
+
     <div class="display-label">Uprawnienia</div>
     <div class="display-field">
         @Html.DisplayFor(model => model.Uprawnienia.nazwa_uprawnienia)
     </div>
-    </div>
+<input type="submit" value="Usuń" /> 
 </fieldset>
-<p>
-    @Html.ActionLink("Edytuj dane konta", "Edit", new { id=Model.id_uzytkownika })
-</p>
+}
+    <p>        
+        @Html.ActionLink("powrót do listy studentów", "List")
+    </p>
