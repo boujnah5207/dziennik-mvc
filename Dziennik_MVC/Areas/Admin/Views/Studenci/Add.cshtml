@@ -1,0 +1,78 @@
+﻿@model Dziennik_MVC.Models.Entities.Studenci
+
+@{
+    ViewBag.Title = "Dodaj studenta";
+    Layout = "~/Areas/Admin/Views/Shared/_AdminLayout.cshtml";
+}
+
+<script src="@Url.Content("~/Scripts/jquery.validate.min.js")" type="text/javascript"></script>
+<script src="@Url.Content("~/Scripts/jquery.validate.unobtrusive.min.js")" type="text/javascript"></script>
+
+@using (Html.BeginForm()) {
+    @Html.ValidationSummary(true)
+       <fieldset>
+        <legend>Dodaj studenta</legend>
+
+        <div class="editor">
+            @Html.LabelFor(model => model.login)
+            @Html.EditorFor(model => model.login)
+            @Html.ValidationMessageFor(model => model.login)
+        </div>
+
+        <div class="editor">
+            @Html.LabelFor(model => model.haslo)
+            @Html.EditorFor(model => model.haslo)
+            @Html.ValidationMessageFor(model => model.haslo)
+        </div>
+
+        <div class="editor">
+            @Html.LabelFor(model => model.imie)
+            @Html.EditorFor(model => model.imie)
+            @Html.ValidationMessageFor(model => model.imie)
+        </div>
+
+        <div class="editor">
+            @Html.LabelFor(model => model.nazwisko)
+            @Html.EditorFor(model => model.nazwisko)
+            @Html.ValidationMessageFor(model => model.nazwisko)
+        </div>
+
+        <div class="editor">
+            @Html.LabelFor(model => model.email)
+            @Html.EditorFor(model => model.email)
+            @Html.ValidationMessageFor(model => model.email)
+        </div>
+
+        <div class="editor">
+            @Html.LabelFor(model => model.nr_indeksu)
+            @Html.EditorFor(model => model.nr_indeksu)
+            @Html.ValidationMessageFor(model => model.nr_indeksu)
+        </div>
+
+        <div class="editor">
+            @Html.LabelFor(model => model.Grupy)
+            @Html.DropDownListFor(model => model.id_grupy, ((IEnumerable<Dziennik_MVC.Models.Entities.Grupy>)ViewBag.ListaGrup).Select(option => 
+            new SelectListItem
+                {
+                    Text = option.nazwa_grupy.ToString() +" - ID Grupy:"+option.id_grupy,
+                    Value = option.id_grupy.ToString()
+                })
+            )
+            @Html.ValidationMessageFor(model => model.Grupy)
+            
+        </div>
+
+        <div class="editor">
+            @Html.LabelFor(model => model.aktywny)
+            @Html.EditorFor(model => model.aktywny)
+            @Html.ValidationMessageFor(model => model.aktywny)
+        </div>
+        <p>
+            <input type="submit" value="Dodaj do bazy" />
+        </p>
+    </fieldset>
+}
+
+<div>
+    @Html.ActionLink("Lista", "List")
+</div>

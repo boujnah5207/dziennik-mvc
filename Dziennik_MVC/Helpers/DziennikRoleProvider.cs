@@ -13,11 +13,11 @@ namespace Dziennik_MVC.Helpers
 {
     public class DziennikRoleProvider : RoleProvider
     {
-        private UsersRepository repository { get; set; }
+        private UzytkownicyRepository repository { get; set; }
 
         public DziennikRoleProvider()
         {
-            repository = new UsersRepository();
+            repository = new UzytkownicyRepository();
         }
  
         public override void AddUsersToRoles(string[] usernames, string[] roleNames)
@@ -58,11 +58,11 @@ namespace Dziennik_MVC.Helpers
         }
 
         public override string[] GetRolesForUser(string username){
-              Dziennik_MVC.Models.Entities.Roles role = this.repository.GetRoleForUser(username);
+              Uprawnienia role = this.repository.GetRoleForUser(username);
             if (!this.repository.RoleExists(role))
                 return new string[] { string.Empty };
 
-            return new string[] { role.RoleName };
+            return new string[] { role.nazwa_uprawnienia };
         }
 
         public override string[] GetUsersInRole(string roleName)
@@ -72,15 +72,15 @@ namespace Dziennik_MVC.Helpers
 
         public override bool IsUserInRole(string username, string rolename)
         {
-            Users user = repository.GetUser(username);
-            Dziennik_MVC.Models.Entities.Roles role = repository.GetRole(rolename);
+            Uzytkownicy user = repository.GetUser(username);
+            Uprawnienia role = repository.GetRole(rolename);
 
             if (!repository.UserExists(user))
                 return false;
             if (!repository.RoleExists(role))
                 return false;
 
-            return user.Roles.RoleName == role.RoleName; ;
+            return user.Uprawnienia.nazwa_uprawnienia == role.nazwa_uprawnienia; ;
         }
 
         public override void RemoveUsersFromRoles(string[] usernames, string[] roleNames)

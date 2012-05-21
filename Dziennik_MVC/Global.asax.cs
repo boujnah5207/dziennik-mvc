@@ -12,6 +12,7 @@ using Dziennik_MVC.Helpers;
 using System.Reflection;
 using System.Data.Entity;
 using Ninject;
+using Dziennik_MVC.Infrastructure.Logging;
 
 namespace Dziennik_MVC
 {
@@ -59,9 +60,11 @@ namespace Dziennik_MVC
 
         private static void RegisterServices(IKernel kernel)
         {
-            kernel.Bind<IUsersRepository>().To<UsersRepository>().InRequestScope();
-            kernel.Bind<ISemestersRepository>().To<SemestersRepository>().InRequestScope();
-            kernel.Bind<IGroupsRepository>().To<GroupsRepository>().InRequestScope();
+            kernel.Bind<IUzytkownicyRepository>().To<UzytkownicyRepository>().InRequestScope();
+            kernel.Bind<IGrupyRepository>().To<GrupyRepository>().InRequestScope();
+            kernel.Bind<IStudenciRepository>().To<StudenciRepository>().InRequestScope();
+            kernel.Bind<ISemestryRepository>().To<SemestryRepository>().InRequestScope();
+            kernel.Bind<ILogger>().To<NLogLogger>().InSingletonScope();
         }
     }
 }

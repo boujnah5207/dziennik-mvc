@@ -6,9 +6,9 @@ using System.ComponentModel.DataAnnotations;
 
 namespace Dziennik_MVC.Models.Entities
 {
-    [Table("Admins")]
-    public class Admins : Users
+    [Table("Administrator")]
+    public class Administrator : Uzytkownicy
     {
-        public Admins() { }
+        public Administrator() { }
     }
 }

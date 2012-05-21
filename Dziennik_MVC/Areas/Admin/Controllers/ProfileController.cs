@@ -13,9 +13,9 @@ namespace Dziennik_MVC.Areas.Admin.Controllers
 { 
     public class ProfileController : Controller
     {
-        private IUsersRepository _repo;
+        private IUzytkownicyRepository _repo;
 
-        public ProfileController(IUsersRepository repo) 
+        public ProfileController(IUzytkownicyRepository repo) 
         {
             _repo = repo;
         }
@@ -28,7 +28,7 @@ namespace Dziennik_MVC.Areas.Admin.Controllers
             
             ViewBag.Current = "Profile";    // Aktualne zaznaczenie zakladki Profil w Menu 
 
-            var user = _repo.GetUser(User.Identity.Name) as Admins;
+            var user = _repo.GetUser(User.Identity.Name) as Administrator;
 
             return View(user);
         }
@@ -38,9 +38,9 @@ namespace Dziennik_MVC.Areas.Admin.Controllers
  
         public ViewResult Edit(int id)
         {
-            Admins user = _repo.GetUser(id) as Admins;
+            Administrator user = _repo.GetUser(id) as Administrator;
 
-            ViewBag.ListaUprawnien = new SelectList(_repo.GetAllRoles, "RoleID", "RoleName", user.UserID); // Lista Uprawnien
+            ViewBag.ListaUprawnien = new SelectList(_repo.GetAllRoles, "id_uprawnienia", "nazwa_uprawnienia", user.id_uzytkownika); // Lista Uprawnien
             ViewBag.Current = "Profile";  // Aktualne zaznaczenie zakladki Profil w Menu 
            
 
@@ -51,7 +51,7 @@ namespace Dziennik_MVC.Areas.Admin.Controllers
         // POST: /Profile/Edit/1
 
         [HttpPost]
-        public ActionResult Edit(Admins user )
+        public ActionResult Edit(Administrator user )
         {
            // var admin = user as Admins;
             if (ModelState.IsValid)
@@ -61,7 +61,7 @@ namespace Dziennik_MVC.Areas.Admin.Controllers
                 TempData["message"] = "Zauktalizowano twój profil!";                     // wiadomość w _AdminLayout
                 return RedirectToRoute("Admin_default", new { action = "Profile" });
             }
-            ViewBag.ListaUprawnien = new SelectList(_repo.GetAllRoles, "RoleID", "RoleName", user.UserID);      // Lista
+            ViewBag.ListaUprawnien = new SelectList(_repo.GetAllRoles, "id_uprawnienia", "nazwa_uprawnienia", user.id_uzytkownika);     // Lista
             TempData["message"] = "Nie udało się zaktualizować twojego profilu!";                                   // wiadomość w _AdminLayout
             return View(user);
         }

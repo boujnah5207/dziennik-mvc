@@ -48,9 +48,9 @@
     <Reference Include="DataAnnotationsExtensions.ClientValidation">
       <HintPath>..\packages\DataAnnotationsExtensions.MVC3.1.0.1\lib\NETFramework40\DataAnnotationsExtensions.ClientValidation.dll</HintPath>
     </Reference>
-    <Reference Include="EntityFramework, Version=4.3.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+    <Reference Include="EntityFramework, Version=4.3.1.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\packages\EntityFramework.4.3.0\lib\net40\EntityFramework.dll</HintPath>
+      <HintPath>..\packages\EntityFramework.4.3.1\lib\net40\EntityFramework.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="Microsoft.Web.Infrastructure, Version=1.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
@@ -64,6 +64,12 @@
     <Reference Include="Ninject.Web.Mvc, Version=2.2.0.0, Culture=neutral, PublicKeyToken=c7192dc5380945e7, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\packages\Ninject.MVC3.2.2.2.0\lib\net40-Full\Ninject.Web.Mvc.dll</HintPath>
+    </Reference>
+    <Reference Include="NLog">
+      <HintPath>..\packages\NLog.2.0.0.2000\lib\net40\NLog.dll</HintPath>
+    </Reference>
+    <Reference Include="nunit.framework">
+      <HintPath>..\packages\NUnit.2.6.0.12054\lib\nunit.framework.dll</HintPath>
     </Reference>
     <Reference Include="PagedList">
       <HintPath>..\packages\PagedList.1.12\lib\net40\PagedList.dll</HintPath>
@@ -107,33 +113,38 @@
       <DependentUpon>datavalidation.resx</DependentUpon>
     </Compile>
     <Compile Include="Areas\Admin\AdminAreaRegistration.cs" />
-    <Compile Include="Areas\Admin\Controllers\GroupsController.cs" />
+    <Compile Include="Areas\Admin\Controllers\GrupyController.cs" />
     <Compile Include="Areas\Admin\Controllers\ProfileController.cs" />
-    <Compile Include="Areas\Admin\Controllers\SemestersController.cs" />
+    <Compile Include="Areas\Admin\Controllers\SemestryController.cs" />
+    <Compile Include="Areas\Admin\Controllers\StudenciController.cs" />
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Helpers\DziennikMembershipProvider.cs" />
     <Compile Include="Helpers\DziennikRoleProvider.cs" />
+    <Compile Include="Infrastructure\Logging\ILogger.cs" />
+    <Compile Include="Infrastructure\Logging\NLogLogger.cs" />
     <Compile Include="Models\AccountModels.cs" />
-    <Compile Include="Models\Data\Abstract\IGroupsRepository.cs" />
-    <Compile Include="Models\Data\Abstract\ISemestersRepository.cs" />
-    <Compile Include="Models\Data\Abstract\IUsersRepository.cs" />
+    <Compile Include="Models\Data\Abstract\IGrupyRepository.cs" />
+    <Compile Include="Models\Data\Abstract\ISemestryRepository.cs" />
+    <Compile Include="Models\Data\Abstract\IStudenciRepository.cs" />
+    <Compile Include="Models\Data\Abstract\IUzytkownicyRepository.cs" />
     <Compile Include="Models\Data\Concrete\EFContext.cs" />
-    <Compile Include="Models\Data\Concrete\GroupsRepository.cs" />
-    <Compile Include="Models\Data\Concrete\SemestersRepository.cs" />
-    <Compile Include="Models\Data\Concrete\UsersRepository.cs" />
-    <Compile Include="Models\Entities\Admins.cs" />
-    <Compile Include="Models\Entities\Groups.cs" />
-    <Compile Include="Models\Entities\Grades.cs" />
-    <Compile Include="Models\Entities\Projects.cs" />
-    <Compile Include="Models\Entities\Courses.cs" />
-    <Compile Include="Models\Entities\Semesters.cs" />
-    <Compile Include="Models\Entities\Students.cs" />
-    <Compile Include="Models\Entities\Roles.cs" />
-    <Compile Include="Models\Entities\Users.cs" />
-    <Compile Include="Models\Entities\Teachers.cs" />
+    <Compile Include="Models\Data\Concrete\GrupyRepository.cs" />
+    <Compile Include="Models\Data\Concrete\SemestryRepository.cs" />
+    <Compile Include="Models\Data\Concrete\StudenciRepository.cs" />
+    <Compile Include="Models\Data\Concrete\UzytkownicyRepository.cs" />
+    <Compile Include="Models\Entities\Administrator.cs" />
+    <Compile Include="Models\Entities\Grupy.cs" />
+    <Compile Include="Models\Entities\Oceny.cs" />
+    <Compile Include="Models\Entities\Projekty.cs" />
+    <Compile Include="Models\Entities\Przedmioty.cs" />
+    <Compile Include="Models\Entities\Semestry.cs" />
+    <Compile Include="Models\Entities\Studenci.cs" />
+    <Compile Include="Models\Entities\Uprawnienia.cs" />
+    <Compile Include="Models\Entities\Uzytkownicy.cs" />
+    <Compile Include="Models\Entities\Wykladowcy.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -244,7 +255,6 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-    <Folder Include="Areas\Admin\Models\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="packages.config" />
@@ -271,28 +281,36 @@
     </Content>
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Areas\Admin\Views\Semesters\List.cshtml" />
+    <Content Include="Areas\Admin\Views\Grupy\Add.cshtml" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Areas\Admin\Views\Semesters\Add.cshtml" />
+    <Content Include="Areas\Admin\Views\Grupy\Delete.cshtml" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Areas\Admin\Views\Semesters\Edit.cshtml" />
+    <Content Include="Areas\Admin\Views\Grupy\Edit.cshtml" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Areas\Admin\Views\Semesters\Delete.cshtml" />
+    <Content Include="Areas\Admin\Views\Grupy\List.cshtml" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Areas\Admin\Views\Groups\Add.cshtml" />
+    <Content Include="Areas\Admin\Views\Studenci\Add.cshtml" />
+    <Content Include="Areas\Admin\Views\Studenci\Delete.cshtml" />
+    <Content Include="Areas\Admin\Views\Studenci\Edit.cshtml" />
+    <Content Include="Areas\Admin\Views\Studenci\List.cshtml" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Areas\Admin\Views\Groups\Delete.cshtml" />
+    <Content Include="Areas\Admin\Views\Semestry\Add.cshtml" />
+    <Content Include="Areas\Admin\Views\Semestry\Delete.cshtml" />
+    <Content Include="Areas\Admin\Views\Semestry\Edit.cshtml" />
+    <Content Include="Areas\Admin\Views\Semestry\List.cshtml" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Areas\Admin\Views\Groups\Edit.cshtml" />
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="Areas\Admin\Views\Groups\List.cshtml" />
+    <Content Include="NLog.config">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <None Include="NLog.xsd">
+      <SubType>Designer</SubType>
+    </None>
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v10.0\WebApplications\Microsoft.WebApplication.targets" />

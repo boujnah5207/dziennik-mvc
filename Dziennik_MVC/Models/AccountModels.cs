@@ -34,7 +34,7 @@ namespace Dziennik_MVC.Models
         [Display(Name = "Login")]
         public string UserName { get; set; }
 
-        public bool isAcvite { get; set; }
+        public bool isActive { get; set; }
 
         [Required]
         [DataType(DataType.Password)]
