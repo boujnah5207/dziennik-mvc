@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
+﻿using System.Linq;
 using Dziennik_MVC.Models.Entities;
 
 namespace Dziennik_MVC.Models.Data.Abstract
@@ -12,9 +9,7 @@ namespace Dziennik_MVC.Models.Data.Abstract
 
         Grupy GetGroupByName(string name);
         Grupy GetGroupByID(int id);
-
-        bool GrupaExists(Grupy grupa);
-
+        
         void AddGroup(Grupy grupa);
         void EditGroup(Grupy grupa);
         void DeleteGroup(Grupy grupa);

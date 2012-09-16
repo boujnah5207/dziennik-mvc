@@ -1,327 +1,180 @@
 ﻿body
-{ font: normal .80em 'trebuchet ms', arial, sans-serif;
-  background: #F3F3F3;
-  background-image:url('/Content/Images/pattern.png');
-  color: #555;}
+{
+    font: normal .80em 'trebuchet ms' , arial, sans-serif;
+    background: #F3F3F3;
+    background-image: url('/Content/Images/pattern.png');
+    color: #555;
+}
 
-h1, h2, h3, h4, h5, h6 
-{ font: normal 250% 'Yanone Kaffeesatz', arial, sans-serif;
-  color: #444;
-  margin: 0 0 15px 0;
-  padding: 5px 0 5px 0;}
+h1, h2, h3, h4, h5, h6
+{
+    font: normal 250% 'Yanone Kaffeesatz' , arial, sans-serif;
+    color: #444;
+    margin: 0 0 15px 0;
+    padding: 5px 0 5px 0;
+}
 
 h2
-{ font: normal 170% 'Yanone Kaffeesatz', arial, sans-serif;
-  color: #F14E23;  
-  margin: 0;
-  padding: 0 0 8px 0;}
+{
+    font: normal 170% 'Yanone Kaffeesatz' , arial, sans-serif;
+    color: #F14E23;
+    margin: 0;
+    padding: 0 0 8px 0;
+}
 
 a, a:hover
-{ outline: none;
-  text-decoration: none;
-  color: #DB0000;}
+{
+    outline: none;
+    text-decoration: none;
+    color: #DB0000;
+}
 
 a:hover
-{ text-decoration: underline;}
-
-ul
-{ margin: 2px 0 22px 17px;}
-
-ul li
-{ list-style-type: circle;
-  margin: 0 0 0 0; 
-  padding: 0 0 4px 5px;}
-
-ol
-{ margin: 8px 0 22px 20px;}
-
-ol li
-{ margin: 0 0 11px 0;}
-
-DIV.Valid  
 {
-	background: #EEFFD1;
-	border: 1px solid #4F8A10;
-	color: #4F8A10;
-	display: block;
-	text-align:center;
-	text-align: center;
-	padding: 10px 0px 10px 0px;
-} 
-DIV.InValid { 
-	background: #FFD1D1;
-	border: 1px solid #8A1010;
-	color: #8A1010;
-	display: block;
-	text-align:center;
-	text-align: center;
-	padding: 10px 0px 10px 0px;
-} 
+    text-decoration: underline;
+}
 
 #main, #header, #logo, #menubar, #site_content, #footer
-{ margin-left: auto; 
-  margin-right: auto;}
+{
+    margin-left: auto;
+    margin-right: auto;
+}
 
 #main
-{ width: 850px;
-  margin: 20px auto;}
+{
+    width: 850px;
+    margin: 20px auto;
+}
 
 #header
-{ width: 100%;
-  height: 5px;}
+{
+    width: 100%;
+    height: 5px;
+}
 
 .slogan
-{ float: left; 
-  padding-right: 25px;
-  font: 200% ; 
-  color: #444;}
+{
+    float: left;
+    padding-right: 25px;
+    font: 200%;
+    color: #444;
+}
 
 #menubar
-{ height: 46px;
-  width: 700px;
-  margin: 0 -2px -1px -1px;
-  float: right;
-  padding: 0px 0 0 0;} 
+{
+    height: 46px;
+    width: 700px;
+    margin: 0 -2px 10px -1px;
+    float: right;
+    padding: 0px 0 0 0;
+}
 
 ul#menu
-{ float: right;}
+{
+    float: right;
+}
 
 ul#menu li
-{ float: left;
-  padding: 0 0 0px 0px;
-  list-style: none;
-  margin: 2px 0 0 0;
-  background: transparent;}
+{
+    float: left;
+    padding: 0 0 0px 0px;
+    list-style: none;
+    margin: 2px 0 0 0;
+    background: transparent;
+}
 
 ul#menu li a
-{ font: normal 170% 'Yanone Kaffeesatz', sans-serif;
-  text-decoration: none;
-  color: #444;
-  display: block; 
-  float: left; 
-  height: 20px;
-  padding: 7px 23px 15px 23px;
-  text-align: center;} 
+{
+    font: normal 170% 'Yanone Kaffeesatz' , sans-serif;
+    text-decoration: none;
+    color: #444;
+    display: block;
+    float: left;
+    height: 20px;
+    padding: 7px 23px 15px 23px;
+    text-align: center;
+}
 
 ul#menu li.current a
-{ height: 20px;
-  padding: 6px 22px 15px 22px;}
+{
+    height: 20px;
+    padding: 6px 22px 15px 22px;
+}
 
 ul#menu li.current a
-{ background: #fff;
-  border: 1px solid #ddd;
-  border-bottom: 0;
-  border-color: #A19A92 ;
-  color: #F14E23;}
+{
+    background: #fff;
+    border: 1px solid #ddd;
+    border-bottom: 0;
+    border-color: #A19A92;
+    color: #F14E23;
+}
 
 ul#menu li a:hover
-{ color: #F14E23;}
+{
+    color: #F14E23;
+}
 
 #site_content
-{ width: 850px;
-  overflow: hidden;
-  margin: 0 auto 0 auto;
-  padding: 0;
-  background: #fff;
-  border: 1px solid #A19A92;} 
+{
+    width: 850px;
+    overflow: hidden;
+    margin: 0 auto 0 auto;
+    padding: 0;
+    background: #fff;
+    border: 1px solid #A19A92;
+}
 
 #content
-{ text-align: left;
-  width: 800px;
-  padding: 25px 0 5px 25px;
-  margin: 0;}
-
-#content ul
-{ margin: 2px 0 22px 0px;}
-
-#content ul li
-{ list-style-type: none;
-  background: url('/Content/Images/info.ico') no-repeat scroll 0 2px transparent;
-  margin: 0 0 6px 0; 
-  padding: 0 0 4px 25px;
-  line-height: 1.5em;}
-
+{
+    text-align: left;
+    width: 800px;
+    padding: 25px 0 5px 25px;
+    margin: 0;
+}
 
 /* FORM LAYOUT ELEMENTS   
 ----------------------------------------------------------*/
 
-fieldset 
+fieldset
 {
-	width:95%;
-	border: 1px solid #FF7300;
-	border-style:dotted;
-	background-color:#FFF8ED;
-	padding: 0 1.4em 1.4em 1.4em;
-	margin: 0 0 1.5em 0;
+    background-color: #FFF8ED;
 }
 
-legend {
-	font-size: 1.2em;
-	font-weight: bold;
-	color:#F14E23;
-}
-
-input[type="text"], 
-input[type="password"] {
-	padding: 5px;  
-	font-size: 15px;  
-	text-shadow: 0px 1px 0px #fff;  
-	outline: none;  
-	background: -webkit-gradient(linear, left top, left bottombottom, from(#FAEDD4), to(#ffffff));  
-	background: -moz-linear-gradient(top,  #FAEDD4,  #ffffff);  
-	-webkit-border-radius: 3px;  
-	-moz-border-radius: 3px;  
-	border-radius: 3px;  
-	border: 1px solid #717171;  
-	-webkit-box-shadow: 1px 1px 0px #efefef;  
-	-moz-box-shadow: 1px 1px 0px #efefef;  
-	box-shadow:  1px 1px 0px #efefef;  
-}
-
-input:focus {  
-	-webkit-box-shadow: 0px 0px 5px #FF8000;  
-	-moz-box-shadow: 0px 0px 5px #FF8000;  
-	box-shadow: 0px 0px 5px #FF8000;  
-} 
-
-select {
-	border: 1px solid #ccc;
-	color: #000000;
-	font-size: 1.2em;
-	margin: 10px 0 0 10px;
-	padding: 0;
-	width: 203px;
-	background: -moz-linear-gradient(center top , #FAEDD4, #FFFFFF) repeat scroll 0 0 transparent;
-}
-
-input[type="submit"] {
-	-moz-border-radius:3px;
-	-webkit-border-radius:3px;
-	border-radius:3px;
-	background: -moz-linear-gradient(19% 75% 90deg,#F0DEB8, #FDF0D1, #fff 100%);
-	background: -webkit-gradient(linear, 0% 0%, 0% 100%, from(#FFFFFF), to(#F0DEB8), color-stop(.3,#FDF0D1));
-	color:#836d4d;
-	float:left;
-	font-family:arial,helvetica,sans-serif;
-	font-size:15px;
-	font-weight:bold;
-	padding:6px 35px;
-	margin: 15px 20px 0px 150px;
-	border: 1px solid #d4c198;
-}
-
-input[type="submit"]:hover{
-	background: -moz-linear-gradient(19% 75% 90deg,#EBD9B4, #F2E6C8, #F5F5F5 100%);
-	background: -webkit-gradient(linear, 0% 0%, 0% 100%, from(#F5F5F5), to(#EBD9B4), color-stop(.3,#F2E6C8));
-}
-
-.opcje {
-
-}
-
-
-.pager {
-	margin: 2px 0 5px 0px;
-	padding: 2px 0 0 3px;
-}
-
-.filter {
-	background-color: #FFFFFF;
-	float: right;
-	margin: -10px 0px 10px;
-	width: 100%;
-}
-.filter, submit {
-	float: right;
-	margin: -47px -89px 2px 0;
-}
-.addUser {
-	background-color: #FFFFFF;
-	float: left;
-	margin: 4px 0px 4px 10px
-	width: 100%;
-	padding: 10px 8px 5px 2px;
-}
-.tooltip
+legend
 {
-	border: 1px;
-	border-style:dotted;
-	border-color: #FF7300;
-	width:80%;
-	background-color:#FFF8ED;    
-	padding: 0 15px 0px 20px;
-	margin: 0 0 1.5em 0;
-}
-
-/* TABLE
-----------------------------------------------------------*/
-
-/* MISC  
-----------------------------------------------------------*/
-.clear {
-	clear: both;
-}
-
-.error {
-	color: Red;
-}
-
-nav, 
-#menucontainer {
-	margin-top: 40px;
-}
-
-div#title {
-	display: block;
-	float: left;
-	text-align: left;
-}
-
-#logindisplay {
-	font-size: 1.1em;
-	display: block;
-	text-align: right;
-	margin: 10px;
-	color: White;
-}
-
-#logindisplay a:link {
-	color: white;
-	text-decoration: underline;
-}
-
-#logindisplay a:visited {
-	color: white;
-	text-decoration: underline;
-}
-
-#logindisplay a:hover {
-	color: white;
-	text-decoration: none;
+    font-size: 1.2em;
+    font-weight: bold;
+    color: #F14E23;
 }
 
 /* Styles for validation helpers
 -----------------------------------------------------------*/
-.field-validation-error {
-	color: #ff0000;
+.field-validation-error
+{
+    color: #ff0000;
 }
 
-.field-validation-valid {
-	display: none;
+.field-validation-valid
+{
+    display: none;
 }
 
-.input-validation-error {
-	border: 1px solid #ff0000;
-	background-color: #ffeeee;
+.input-validation-error
+{
+    border: 1px solid #ff0000;
+    background-color: #ffeeee;
 }
 
-.validation-summary-errors {
-	font-weight: bold;
-	color: #ff0000;
+.validation-summary-errors
+{
+    font-weight: bold;
+    color: #ff0000;
 }
 
-.validation-summary-valid {
-	display: none;
+.validation-summary-valid
+{
+    display: none;
 }
 
 /* Styles for editor and display helpers
@@ -329,102 +182,129 @@ div#title {
 
 .pageTitle
 {
-	margin: 0 0 0 0;
-	text-align: center;
+    margin: 0 0 0 0;
+    text-align: center;
 }
 
-.display
+.Valid
 {
-	margin: 0px 0px 0px 0px;
-	padding: 0px 0px 0px 0px;
-	text-align:left;    
+    background: #EEFFD1;
+    border: 1px solid #4F8A10;
+    color: #4F8A10;
+    display: block;
+    text-align: center;
+    text-align: center;
+    padding: 10px 0px 10px 0px;
 }
-
-.display-label
+.InValid
 {
-	margin: 0px 0px 14px 2px ;
-	font-weight: bold;
+    background: #FFD1D1;
+    border: 1px solid #8A1010;
+    color: #8A1010;
+    display: block;
+    text-align: center;
+    text-align: center;
+    padding: 10px 0px 10px 0px;
 }
 
-.display-field
-{
-	margin:-29px 0px 0px 130px ;
-	float: left;
-}
-
-.editor label {
-  float: left;
-  width: 100px;  
-  padding: 2px 0px 2px 0px;
-  margin: 10px 0 0 2px;
-  text-align: left; 
-  font-weight: bold;
-}
-
-.editor input[type="checkbox"]
-{
-   
-	padding: 15px 0px 2px 0px;
-	margin: 15px 0 0 10px;
-	
-	}
-
-.editor input[type=text],input[type="password"] {
-  width: 200px; 
-  padding: 2px 0px 2px 0px;
-  margin: 10px 0 0 10px;
-  font-size: 14px;
-}
-
-.editor 
-{
-	text-align:left;
-	padding: 0px 0px 0px 0px;
-		
-}
-
-.text-box {
-	width: 30em;
-}
-
-.text-box.multi-line {
-	height: 6.5em;
-}
-
-.tri-state {
-	width: 6em;
-}
+/*------------------------------------TABLE GENERATOR ----------------------------------*/
 
 table
-{ 
-	margin: 10px 0 10px 0;
-	width:100%;
-	text-align:center;
-	border: 1px;
-	border-color: #000000;
-	border-style:solid;
-	background: #FFFFFF;
-	border-collapse:collapse;    
+{
+    margin: 10px 0 10px 0;
+    width: 100%;
+    text-align: center;
+    border: 1px;
+    border-color: #000000;
+    border-style: solid;
+    background: #FFFFFF;
+    border-collapse: collapse;
 }
 
 table tr th, table tr td
-{ background: #FFE1B0;
-  color: #000000;
-  padding: 7px 4px;
-  text-align: center;
-  border: 1px;
-  border-style:solid;
-  border-color: #000000;
-  width: 60px;
+{
+    background: #FFE1B0;
+    color: #000000;
+    padding: 7px 4px;
+    text-align: center;
+    border: 1px;
+    border-style: solid;
+    border-color: #000000;
+    width: 60px;
 }
-  
+
 table tr td
-{ background: #FFF1DB;
-  color: #000000; 
+{
+    background: #FFF1DB;
+    color: #000000;
 }
 
+label
+{
+    padding: 4px 0 0;
+    float: left;
+    width: 120px;
+    font-weight: bold;
+}
 
+input, textarea
+{
+    display: block;
+    width: 180px;
+    margin-bottom: 5px;
+}
 
+input[type='checkbox']
+{
+    width: 15px;
+    margin: 10px 0 0;
+}
 
+input[type="text"], input[type="password"]
+{
+    padding: 3px;
+    font-size: 15px;
+    -webkit-border-radius: 3px;
+    -moz-border-radius: 3px;
+    border-radius: 3px;
+    border: 1px solid #717171;
+    -webkit-box-shadow: 1px 1px 0px #efefef;
+    -moz-box-shadow: 1px 1px 0px #efefef;
+}
 
+input:focus
+{
+    -webkit-box-shadow: 0px 0px 5px #FF8000;
+    -moz-box-shadow: 0px 0px 5px #FF8000;
+    box-shadow: 0px 0px 5px #FF8000;
+}
 
+select
+{
+    border: 1px solid #ccc;
+    color: #000000;
+    font-size: 1.2em;
+    padding: 0;
+    width: 190px;;
+}
+
+input[type="submit"]
+{
+    -moz-border-radius: 3px;
+    -webkit-border-radius: 3px;
+    border-radius: 3px;
+    background: -moz-linear-gradient(19% 75% 90deg,#F0DEB8, #FDF0D1, #fff 100%);
+    background: -webkit-gradient(linear, 0% 0%, 0% 100%, from(#FFFFFF), to(#F0DEB8), color-stop(.3,#FDF0D1));
+    color: #836d4d;
+    float: left;
+    font-family: arial,helvetica,sans-serif;
+    font-size: 13px;
+    font-weight: bold;
+    border: 1px solid #000000;
+}
+
+input[type="submit"]:hover
+{
+    background: -moz-linear-gradient(19% 75% 90deg,#EBD9B4, #F2E6C8, #F5F5F5 100%);
+    background: -webkit-gradient(linear, 0% 0%, 0% 100%, from(#F5F5F5), to(#EBD9B4), color-stop(.3,#F2E6C8));
+}

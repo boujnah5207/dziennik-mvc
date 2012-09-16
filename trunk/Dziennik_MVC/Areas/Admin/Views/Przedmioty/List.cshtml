@@ -1,38 +1,38 @@
-﻿@model PagedList.IPagedList<Dziennik_MVC.Models.Entities.Grupy>
+﻿@model PagedList.IPagedList<Dziennik_MVC.Models.Entities.Przedmioty>
 
 @{
-    ViewBag.Title = "Lista grup";
+    ViewBag.Title = "Lista przedmiotów";
     Layout = "~/Areas/Admin/Views/Shared/_AdminLayout.cshtml";
 }
 
 <div class="pageTitle">
-    <h2>Akutalna lista grup</h2>
+    <h2>Lista przedmiotów</h2>
 </div>
 
 <div class="opcje">
-    @Html.ActionLink("Dodaj grupę", "Add")
+    @Html.ActionLink("Dodaj przedmiot", "Add")
 </div>
 
 <table>
-    <tr>          
+    <tr>      
         <th>
-            @Html.ActionLink("Id grupy", "List", new { sortOrder = ViewBag.IDGrupySortParm })
+            @Html.ActionLink("ID przedmiotu", "List", new { sortOrder = ViewBag.IDPrzedmiotuSortParm })
 
-            @if (ViewBag.CurrentSort == "ID Grupy asc")
+            @if (ViewBag.CurrentSort == "ID Przedmiotu asc")
             {
              @:<div class="sorting">
               @:↑
              @:</div>
             }
-            @if (ViewBag.CurrentSort == "ID Grupy desc")
+            @if (ViewBag.CurrentSort == "ID Przedmiotu desc")
             { 
               @:<div class="sorting">
               @:↓
               @:</div>
             }            
-        </th>
+        </th>       
         <th>
-            @Html.ActionLink("Nazwa grupy", "List", new { sortOrder = ViewBag.NameSortParm })
+            @Html.ActionLink("Nazwa przedmiotu", "List", new { sortOrder = ViewBag.NameSortParm })
 
             @if (ViewBag.CurrentSort == "Name asc")
             {
@@ -46,28 +46,22 @@
               @:↓
               @:</div>
             }            
-        </th>  
-        <th>                         
-        </th>        
+        </th>   
+        <th></th>
     </tr>
 
 @foreach (var item in Model)
 {
-    <tr>   
-         <td>
-            @Html.DisplayFor(modelItem => item.id_grupy)
-        </td>  
-        <td>        
-            @Html.ActionLink(item.nazwa_grupy, "ListaStudentow", "Shared", new
-       {
-           id = item.id_grupy,
-           nazwa = @HttpContext.Current.Request.RequestContext.RouteData.Values["controller"].ToString()
-       }, null)
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.id_przedmiotu)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.nazwa_przedmiotu)
         </td>       
         <td>
-            @Html.ActionLink("Przypisz grupie przedmioty", "PrzypiszPrzedmioty", new { id = item.id_grupy }) |
-            @Html.ActionLink("Edytuj", "Edit", new { id = item.id_grupy }) |
-            @Html.ActionLink("Usuń", "Delete", new { id = item.id_grupy })
+            @Html.ActionLink("Edytuj", "Edit", new { id = item.id_przedmiotu }) |
+            @Html.ActionLink("Usuń", "Delete", new { id = item.id_przedmiotu })
         </td>
     </tr>
 }

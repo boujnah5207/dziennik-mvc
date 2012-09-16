@@ -38,12 +38,6 @@
         </div>
 
         <div class="editor">
-            @Html.LabelFor(model => model.email)
-            @Html.EditorFor(model => model.email)
-            @Html.ValidationMessageFor(model => model.email)
-        </div>
-
-        <div class="editor">
             @Html.LabelFor(model => model.nr_indeksu)
             @Html.EditorFor(model => model.nr_indeksu)
             @Html.ValidationMessageFor(model => model.nr_indeksu)
@@ -58,21 +52,15 @@
                     Value = option.id_grupy.ToString()
                 })
             )
-            @Html.ValidationMessageFor(model => model.Grupy)
-            
+            @Html.ValidationMessageFor(model => model.Grupy)            
         </div>
 
-        <div class="editor">
-            @Html.LabelFor(model => model.aktywny)
-            @Html.EditorFor(model => model.aktywny)
-            @Html.ValidationMessageFor(model => model.aktywny)
-        </div>
         <p>
-            <input type="submit" value="Dodaj do bazy" />
+            <input type="submit" value="Dodaj studenta" />
         </p>
     </fieldset>
 }
 
 <div>
-    @Html.ActionLink("Lista", "List")
+    @Html.ActionLink("powrót do listy studentów", "List")
 </div>

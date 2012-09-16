@@ -1,19 +1,12 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
+﻿using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
-using DataAnnotationsExtensions;
-using Resources;
 
 namespace Dziennik_MVC.Models.Entities
 {
-    public abstract class Uzytkownicy
+    public class Prowadzacy
     {
-        public Uzytkownicy() { 
-        }
         [Key, DatabaseGenerated(DatabaseGeneratedOption.Identity)]
-        public int id_uzytkownika { get; set; }
+        public int id_prowadzacego { get; set; }
 
         [Required]
         [StringLength(50, ErrorMessage = "{0} musi być co najmniej {2} znaków długości.", MinimumLength = 4)]
@@ -27,11 +20,11 @@ namespace Dziennik_MVC.Models.Entities
         [StringLength(100, ErrorMessage = "{0} musi być co najmniej {2} znaków długości.", MinimumLength = 6)]
         public string haslo { get; set; }
 
-        [Display(Name = "Aktywny")]
-        public bool aktywny { get; set; }
+        [Display(Name = "Admin")]
+        public bool admin { get; set; }
 
         [Required]
-        [Display(Name= "Imię")]
+        [Display(Name = "Imię")]
         [StringLength(50, ErrorMessage = "{0} musi być co najmniej {2} znaków długości.", MinimumLength = 3)]
         public string imie { get; set; }
 
@@ -40,13 +33,8 @@ namespace Dziennik_MVC.Models.Entities
         [StringLength(50, ErrorMessage = "{0} musi być co najmniej {2} znaków długości.", MinimumLength = 2)]
         public string nazwisko { get; set; }
 
-        [Required]
-        [Email(ErrorMessage = "To nie jest poprawny adres email!")]
-        [Display(Name = "Email")]
-        public string email { get; set; }
-
-        public int id_uprawnienia { get; set; }
-
-        public virtual Uprawnienia Uprawnienia { get; set; }
+        public virtual ICollection<Projekty> Projekty { get; set; }
+        public virtual ICollection<Oceny> Oceny { get; set; }
+        public virtual ICollection<Przedmioty> Przedmioty { get; set; }
     }
 }

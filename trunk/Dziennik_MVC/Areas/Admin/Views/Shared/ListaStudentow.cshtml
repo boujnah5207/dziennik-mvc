@@ -1,0 +1,87 @@
+﻿@model Dziennik_MVC.Areas.Admin.ViewModels.ListaStudentowViewModel
+
+@{
+    ViewBag.Title = "ListaStudentow";
+    Layout = "~/Areas/Admin/Views/Shared/_AdminLayout.cshtml";
+}
+<div class="pageTitle">
+    <h2>Lista studentów w grupie @Model.grupa.nazwa_grupy</h2>
+</div>
+
+<table>
+    <tr>      
+        <th>
+            @Html.ActionLink("Imię", "List", new { sortOrder = ViewBag.NameSortParm })
+
+            @if (ViewBag.CurrentSort == "Name asc")
+            {
+             @:<div class="sorting">
+              @:↑
+             @:</div>
+            }
+            @if (ViewBag.CurrentSort == "Name desc")
+            { 
+              @:<div class="sorting">
+              @:↓
+              @:</div>
+            }            
+        </th>       
+        <th>
+            @Html.ActionLink("Nazwisko", "List", new { sortOrder = ViewBag.LastNameSortParm })
+
+            @if (ViewBag.CurrentSort == "LastName asc")
+            {
+             @:<div class="sorting">
+              @:↑
+             @:</div>
+            }
+            @if (ViewBag.CurrentSort == "LastName desc")
+            { 
+              @:<div class="sorting">
+              @:↓
+              @:</div>
+            }            
+        </th>          
+        <th>
+            @Html.ActionLink("Nr. Indeksu", "List", new { sortOrder = ViewBag.IndexSortParm })
+
+            @if (ViewBag.CurrentSort == "Index asc")
+            {
+             @:<div class="sorting">
+              @:↑
+             @:</div>
+            }
+            @if (ViewBag.CurrentSort == "Index desc")
+            { 
+              @:<div class="sorting">
+              @:↓
+              @:</div>
+            }            
+        </th>      
+        <th></th>
+    </tr>
+
+@foreach (var item in Model.studenci)
+{
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.imie)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.nazwisko)
+        </td>       
+        <td>
+            @Html.DisplayFor(modelItem => item.nr_indeksu)
+        </td>       
+        <td>
+            @Html.ActionLink("Edytuj", "Edit","Studenci", new { id = item.id_studenta },null) |
+            @Html.ActionLink("Usuń", "Delete","Studenci", new { id = item.id_studenta },null)
+        </td>
+    </tr>
+}
+
+</table>
+
+<div>
+    @Html.ActionLink("powrót", "List", Model.nazwaKontrolera,null,null)
+</div>

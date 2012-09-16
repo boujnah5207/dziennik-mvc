@@ -1,18 +1,12 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
+﻿using System.Data.Entity;
+using System.Reflection;
 using System.Web.Mvc;
 using System.Web.Routing;
-using Ninject.Web.Mvc;
-using System.Web.Security;
+using Dziennik_MVC.Infrastructure.Logging;
 using Dziennik_MVC.Models.Data.Abstract;
 using Dziennik_MVC.Models.Data.Concrete;
-using Dziennik_MVC.Helpers;
-using System.Reflection;
-using System.Data.Entity;
 using Ninject;
-using Dziennik_MVC.Infrastructure.Logging;
+using Ninject.Web.Mvc;
 
 namespace Dziennik_MVC
 {
@@ -60,10 +54,10 @@ namespace Dziennik_MVC
 
         private static void RegisterServices(IKernel kernel)
         {
-            kernel.Bind<IUzytkownicyRepository>().To<UzytkownicyRepository>().InRequestScope();
+            kernel.Bind<IUnitOfWork>().To<EFContext>().InRequestScope();
+            kernel.Bind<IUsersRepository>().To<UsersRepository>().InRequestScope();
             kernel.Bind<IGrupyRepository>().To<GrupyRepository>().InRequestScope();
-            kernel.Bind<IStudenciRepository>().To<StudenciRepository>().InRequestScope();
-            kernel.Bind<ISemestryRepository>().To<SemestryRepository>().InRequestScope();
+            kernel.Bind<IPrzedmiotyRepository>().To<PrzedmiotyRepository>().InRequestScope();
             kernel.Bind<ILogger>().To<NLogLogger>().InSingletonScope();
         }
     }

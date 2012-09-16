@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
-using NLog;
+﻿using NLog;
 
 namespace Dziennik_MVC.Infrastructure.Logging
 {

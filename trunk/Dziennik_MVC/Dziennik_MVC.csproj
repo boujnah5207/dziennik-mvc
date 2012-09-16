@@ -113,10 +113,13 @@
       <DependentUpon>datavalidation.resx</DependentUpon>
     </Compile>
     <Compile Include="Areas\Admin\AdminAreaRegistration.cs" />
+    <Compile Include="Areas\Admin\Controllers\PrzedmiotyController.cs" />
+    <Compile Include="Areas\Admin\Controllers\SharedController.cs" />
     <Compile Include="Areas\Admin\Controllers\GrupyController.cs" />
     <Compile Include="Areas\Admin\Controllers\ProfileController.cs" />
-    <Compile Include="Areas\Admin\Controllers\SemestryController.cs" />
     <Compile Include="Areas\Admin\Controllers\StudenciController.cs" />
+    <Compile Include="Areas\Admin\ViewModels\ListaStudentowViewModel.cs" />
+    <Compile Include="Areas\Admin\ViewModels\PrzedmiotyGrupyViewModel.cs" />
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
@@ -126,25 +129,20 @@
     <Compile Include="Infrastructure\Logging\ILogger.cs" />
     <Compile Include="Infrastructure\Logging\NLogLogger.cs" />
     <Compile Include="Models\AccountModels.cs" />
+    <Compile Include="Models\Data\Abstract\IPrzedmiotyRepository.cs" />
     <Compile Include="Models\Data\Abstract\IGrupyRepository.cs" />
-    <Compile Include="Models\Data\Abstract\ISemestryRepository.cs" />
-    <Compile Include="Models\Data\Abstract\IStudenciRepository.cs" />
-    <Compile Include="Models\Data\Abstract\IUzytkownicyRepository.cs" />
+    <Compile Include="Models\Data\Abstract\IUnitOfWork.cs" />
+    <Compile Include="Models\Data\Abstract\IUsersRepository.cs" />
+    <Compile Include="Models\Data\Concrete\PrzedmiotyRepository.cs" />
     <Compile Include="Models\Data\Concrete\EFContext.cs" />
     <Compile Include="Models\Data\Concrete\GrupyRepository.cs" />
-    <Compile Include="Models\Data\Concrete\SemestryRepository.cs" />
-    <Compile Include="Models\Data\Concrete\StudenciRepository.cs" />
-    <Compile Include="Models\Data\Concrete\UzytkownicyRepository.cs" />
-    <Compile Include="Models\Entities\Administrator.cs" />
+    <Compile Include="Models\Data\Concrete\UsersRepository.cs" />
     <Compile Include="Models\Entities\Grupy.cs" />
     <Compile Include="Models\Entities\Oceny.cs" />
     <Compile Include="Models\Entities\Projekty.cs" />
     <Compile Include="Models\Entities\Przedmioty.cs" />
-    <Compile Include="Models\Entities\Semestry.cs" />
     <Compile Include="Models\Entities\Studenci.cs" />
-    <Compile Include="Models\Entities\Uprawnienia.cs" />
-    <Compile Include="Models\Entities\Uzytkownicy.cs" />
-    <Compile Include="Models\Entities\Wykladowcy.cs" />
+    <Compile Include="Models\Entities\Prowadzacy.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -212,9 +210,9 @@
     <Content Include="Content\themes\base\minified\jquery.ui.theme.min.css" />
     <Content Include="Global.asax" />
     <Content Include="Scripts\DialogForm.js" />
-    <Content Include="Scripts\jquery-1.7.1-vsdoc.js" />
-    <Content Include="Scripts\jquery-1.7.1.js" />
-    <Content Include="Scripts\jquery-1.7.1.min.js" />
+    <Content Include="Scripts\jquery-1.7.2-vsdoc.js" />
+    <Content Include="Scripts\jquery-1.7.2.js" />
+    <Content Include="Scripts\jquery-1.7.2.min.js" />
     <Content Include="Scripts\jquery-ui-1.8.17.js" />
     <Content Include="Scripts\jquery-ui-1.8.17.min.js" />
     <Content Include="Scripts\jquery.validate-vsdoc.js" />
@@ -299,15 +297,15 @@
     <Content Include="Areas\Admin\Views\Studenci\List.cshtml" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Areas\Admin\Views\Semestry\Add.cshtml" />
-    <Content Include="Areas\Admin\Views\Semestry\Delete.cshtml" />
-    <Content Include="Areas\Admin\Views\Semestry\Edit.cshtml" />
-    <Content Include="Areas\Admin\Views\Semestry\List.cshtml" />
-  </ItemGroup>
-  <ItemGroup>
     <Content Include="NLog.config">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
+    <Content Include="Areas\Admin\Views\Shared\ListaStudentow.cshtml" />
+    <Content Include="Areas\Admin\Views\Przedmioty\Add.cshtml" />
+    <Content Include="Areas\Admin\Views\Przedmioty\Delete.cshtml" />
+    <Content Include="Areas\Admin\Views\Przedmioty\Edit.cshtml" />
+    <Content Include="Areas\Admin\Views\Przedmioty\List.cshtml" />
+    <Content Include="Areas\Admin\Views\Grupy\PrzypiszPrzedmioty.cshtml" />
     <None Include="NLog.xsd">
       <SubType>Designer</SubType>
     </None>
@@ -329,7 +327,7 @@
         <WebProjectProperties>
           <UseIIS>False</UseIIS>
           <AutoAssignPort>True</AutoAssignPort>
-          <DevelopmentServerPort>9368</DevelopmentServerPort>
+          <DevelopmentServerPort>5763</DevelopmentServerPort>
           <DevelopmentServerVPath>/</DevelopmentServerVPath>
           <IISUrl>
           </IISUrl>
