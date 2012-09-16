@@ -13,19 +13,6 @@
     <fieldset>
         <legend>Dodaj grupę</legend>
 
-       <div class="editor">
-            @Html.LabelFor(model => model.Semestry)
-            @Html.DropDownListFor(model => model.id_semestru , ((IEnumerable<Dziennik_MVC.Models.Entities.Semestry>)ViewBag.ListaSem).Select(option => 
-            new SelectListItem
-                {
-                    Text = option.rok.ToString() +" "+ option.typ.ToString(),
-                    Value = option.id_semestru.ToString()
-                })
-            )
-            
-            @Html.ValidationMessageFor(model => model.Semestry)
-        </div>
-
         <div class="editor">
             @Html.LabelFor(model => model.nazwa_grupy)        
             @Html.EditorFor(model => model.nazwa_grupy)
@@ -33,11 +20,11 @@
         </div>
 
         <p>
-            <input type="submit" value="Dodaj" />
+            <input type="submit" value="Dodaj grupę" />
         </p>
     </fieldset>
 }
 
 <div>
-    @Html.ActionLink("Lista grup", "List")
+    @Html.ActionLink("powrót do listy grup", "List")
 </div>

@@ -1,23 +1,17 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
 using System.Web.Security;
-
-using Ninject;
-using Dziennik_MVC.Models.Data.Abstract;
-using Dziennik_MVC.Models.Entities;
 using Dziennik_MVC.Models.Data.Concrete;
+using Dziennik_MVC.Models.Entities;
 
 namespace Dziennik_MVC.Helpers
 {
     public class DziennikRoleProvider : RoleProvider
     {
-        private UzytkownicyRepository repository { get; set; }
+        private UsersRepository repository { get; set; }
 
         public DziennikRoleProvider()
         {
-            repository = new UzytkownicyRepository();
+            repository = new UsersRepository(new EFContext());
         }
  
         public override void AddUsersToRoles(string[] usernames, string[] roleNames)
@@ -58,11 +52,15 @@ namespace Dziennik_MVC.Helpers
         }
 
         public override string[] GetRolesForUser(string username){
-              Uprawnienia role = this.repository.GetRoleForUser(username);
-            if (!this.repository.RoleExists(role))
-                return new string[] { string.Empty };
-
-            return new string[] { role.nazwa_uprawnienia };
+            
+            if (repository.IsAdmin(username))
+            {
+                return new String[]{"Admin"};
+            }
+            else
+            {
+                return new String[] { "" };
+            }
         }
 
         public override string[] GetUsersInRole(string roleName)
@@ -72,15 +70,18 @@ namespace Dziennik_MVC.Helpers
 
         public override bool IsUserInRole(string username, string rolename)
         {
-            Uzytkownicy user = repository.GetUser(username);
-            Uprawnienia role = repository.GetRole(rolename);
+            Prowadzacy user = repository.GetProwadzacyByName(username);
+            Studenci student = null;
 
-            if (!repository.UserExists(user))
+            if(user == null)
+                student=repository.GetStudentByName(username);
+
+            if (!repository.ProwadzacyExists(user))
                 return false;
-            if (!repository.RoleExists(role))
+            if ( student != null && !repository.StudentExists(student))
                 return false;
 
-            return user.Uprawnienia.nazwa_uprawnienia == role.nazwa_uprawnienia; ;
+            return user.admin;
         }
 
         public override void RemoveUsersFromRoles(string[] usernames, string[] roleNames)

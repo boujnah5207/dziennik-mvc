@@ -1,0 +1,22 @@
+﻿@model Dziennik_MVC.Models.Entities.Przedmioty
+
+@{
+    ViewBag.Title = "Usuwanie Studenta";
+
+    Layout = "~/Areas/Admin/Views/Shared/_AdminLayout.cshtml";
+}
+@using (Html.BeginForm()) {
+<fieldset>
+    <legend>Usuń przedmiot</legend>
+    
+    <div class="display-label">Nazwa Przedmiotu</div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.nazwa_przedmiotu)
+    </div>
+
+    <input type="submit" value="Usuń" /> 
+</fieldset>
+}
+    <p>        
+        @Html.ActionLink("powrót do listy przedmiotów", "List")
+    </p>

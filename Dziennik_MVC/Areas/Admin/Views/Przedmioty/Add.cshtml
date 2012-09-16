@@ -1,0 +1,27 @@
+﻿@model Dziennik_MVC.Models.Entities.Przedmioty
+
+@{
+    ViewBag.Title = "Dodaj studenta";
+    Layout = "~/Areas/Admin/Views/Shared/_AdminLayout.cshtml";
+}
+
+@using (Html.BeginForm()) {
+    @Html.ValidationSummary(true)
+       <fieldset>
+        <legend>Dodaj Przedmiot</legend>
+
+        <div class="editor">
+            @Html.LabelFor(model => model.nazwa_przedmiotu)
+            @Html.EditorFor(model => model.nazwa_przedmiotu)
+            @Html.ValidationMessageFor(model => model.nazwa_przedmiotu)
+        </div>
+
+        <p>
+            <input type="submit" value="Dodaj przedmiot" />
+        </p>
+    </fieldset>
+}
+
+<div>
+    @Html.ActionLink("powrót do listy przedmiotów", "List")
+</div>

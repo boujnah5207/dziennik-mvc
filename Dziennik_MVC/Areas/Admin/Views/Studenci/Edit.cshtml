@@ -14,7 +14,7 @@
     <fieldset>
         <legend>Edycja konta studenta</legend>
 
-        @Html.HiddenFor(model => model.id_uzytkownika)
+        @Html.HiddenFor(model => model.id_studenta)
 
         <div class="editor">
             @Html.HiddenFor(model => model.login)
@@ -37,12 +37,6 @@
         </div>
 
         <div class="editor">
-            @Html.LabelFor(model => model.email)
-            @Html.EditorFor(model => model.email)
-            @Html.ValidationMessageFor(model => model.email)
-        </div>
-
-        <div class="editor">
             @Html.LabelFor(model => model.nr_indeksu)
             @Html.HiddenFor(model => model.nr_indeksu)
             @Html.TextBoxFor(model => model.nr_indeksu, new { disabled ="disabled"})
@@ -61,14 +55,9 @@
             @Html.ValidationMessageFor(model => model.Grupy)
             
         </div>
-        
-        <div class="editor">
-            @Html.LabelFor(model => model.aktywny)
-            @Html.EditorFor(model => model.aktywny)
-            @Html.ValidationMessageFor(model => model.aktywny)
-        </div>
+
         <p>
-            <input type="submit" value="Save" />
+            <input type="submit" value="Zapisz zmiany" />
         </p>
     </fieldset>
 }

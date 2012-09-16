@@ -1,24 +1,18 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Web;
 using System.Web.Security;
-
-
-using Dziennik_MVC.Models.Data.Abstract;
-using Dziennik_MVC.Models.Entities;
 using Dziennik_MVC.Models.Data.Concrete;
-using Ninject;
+using Dziennik_MVC.Models.Entities;
 
 namespace Dziennik_MVC.Helpers
 {
     public class DziennikMembershipProvider : MembershipProvider
     {
        
-        private UzytkownicyRepository repository { get; set; }
+        private UsersRepository repository { get; set; }
 
         public DziennikMembershipProvider() {
-            repository = new UzytkownicyRepository();
+            repository = new UsersRepository(new EFContext());
         }
 
         public override int MinRequiredPasswordLength
@@ -29,18 +23,23 @@ namespace Dziennik_MVC.Helpers
             }
         }
 
-        public bool isUserActive(string login){
-            return repository.IsActive(login);
-        }
-
         public override bool ValidateUser(string username, string password)
         {
             if (string.IsNullOrEmpty(password.Trim()) || string.IsNullOrEmpty(username.Trim()))
                 return false;
  
             string hash = FormsAuthentication.HashPasswordForStoringInConfigFile(password.Trim(), "md5");
- 
-            return this.repository.GetAllUsers.Any(user => (user.login == username.Trim()) && (user.haslo == hash));
+
+            if (this.repository.GetAllProwadzacy.Any(user => (user.login == username.Trim()) && (user.haslo == hash)))
+            {
+                return true;
+            }
+            else if (this.repository.GetAllStudents.Any(user => (user.login == username.Trim()) && (user.haslo == hash)))
+            {
+                return true;
+            }
+                
+            return false;
         }
 
         public override bool ChangePassword(string username, string oldPassword, string newPassword)
@@ -48,7 +47,7 @@ namespace Dziennik_MVC.Helpers
             if (!ValidateUser(username, oldPassword) || string.IsNullOrEmpty(newPassword.Trim()))
                 return false;
  
-            Uzytkownicy user = repository.GetUser(username);
+            Prowadzacy user = repository.GetProwadzacyByName(username);
             string hash = FormsAuthentication.HashPasswordForStoringInConfigFile(newPassword.Trim(), "md5");
  
             user.haslo = hash;

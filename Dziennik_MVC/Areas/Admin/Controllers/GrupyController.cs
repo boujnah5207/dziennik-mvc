@@ -1,16 +1,12 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Data;
-using System.Data.Entity;
 using System.Linq;
-using System.Web;
 using System.Web.Mvc;
-using Dziennik_MVC.Models.Entities;
-using Dziennik_MVC.Models.Data.Concrete;
-using Dziennik_MVC.Models.Data.Abstract;
-using PagedList;
-using System.Data.Objects.SqlClient;
 using Dziennik_MVC.Infrastructure.Logging;
+using Dziennik_MVC.Models.Data.Abstract;
+using Dziennik_MVC.Models.Entities;
+using PagedList;
+using Dziennik_MVC.Areas.Admin.ViewModels;
+using System.Collections.Generic;
 
 namespace Dziennik_MVC.Areas.Admin.Controllers
 {
@@ -18,14 +14,111 @@ namespace Dziennik_MVC.Areas.Admin.Controllers
     public class GrupyController : Controller
     {
         private IGrupyRepository _repo;
-        private ISemestryRepository _repo1;
+        private IUsersRepository _repo1;
+        private IPrzedmiotyRepository _repo2;
         private readonly ILogger _logger;
 
-        public GrupyController(IGrupyRepository repo, ISemestryRepository repo1, ILogger logger) 
+        public GrupyController(IGrupyRepository repo, IUsersRepository repo1, IPrzedmiotyRepository repo2, ILogger logger) 
         {
             _repo = repo;
             _repo1 = repo1;
+            _repo2 = repo2;
             _logger = logger;
+        }
+
+        public ActionResult PrzypiszPrzedmioty()
+        {
+            ViewBag.Current = "Grupy";    // Aktualne zaznaczenie zakladki Profil w Menu 
+
+            PrzedmiotyGrupyViewModel model = new PrzedmiotyGrupyViewModel { AvailablePrzedmioty = _repo2.GetAllPrzedmioty.ToList(), RequestedPrzedmioty = new List<Przedmioty>() };
+            return View(model);
+        }
+
+        [HttpPost]
+        public ActionResult PrzypiszPrzedmioty(PrzedmiotyGrupyViewModel model, string add, string remove, string send, int id)
+        {
+            ViewBag.Current = "Grupy";    // Aktualne zaznaczenie zakladki Profil w Menu 
+
+            //Need to clear model state or it will interfere with the updated model
+            ModelState.Clear();
+            RestoreSavedState(model);
+            if (!string.IsNullOrEmpty(add))
+                AddProducts(model);
+            else if (!string.IsNullOrEmpty(remove))
+                RemoveProducts(model);
+            else if (!string.IsNullOrEmpty(send))
+            {
+                Validate(model);
+                if (ModelState.IsValid)
+                {
+                    var grupa = _repo.GetGroupByID(id);
+                    foreach(Przedmioty przedmiot in model.RequestedPrzedmioty){
+                        grupa.Przedmioty.Add(przedmiot);
+                    }
+                    _repo.EditGroup(grupa);
+                    _repo.Save();
+                    _logger.Info("GrupyController.Edit => SUCCES = Edit Semester| HTTP POST");
+                    TempData["message"] = "Zauktalizowano grupę!";
+                    TempData["status"] = "valid";
+                    return RedirectToAction("List");
+                }
+                //todo: implement SendListToSanta method...
+            }
+            SaveState(model);
+            return View(model);
+        }
+
+        private void Validate(PrzedmiotyGrupyViewModel model)
+        {           
+            if (string.IsNullOrEmpty(model.SavedRequested))
+                ModelState.AddModelError("", "Nie wybrałeś żadnych przedmiotów!");
+        }
+
+        void SaveState(PrzedmiotyGrupyViewModel model)
+        {
+            //create comma delimited list of product ids
+            model.SavedRequested = string.Join(",", model.RequestedPrzedmioty.Select(p => p.id_przedmiotu.ToString()).ToArray());
+
+            //Available products = All - Requested
+            var wszystkiePrzedmioty = _repo2.GetAllPrzedmioty.ToList();
+            var zaznaczonePrzedmioty = model.RequestedPrzedmioty.ToList();
+
+            var bezZaznaczonego = wszystkiePrzedmioty.Except(zaznaczonePrzedmioty).ToList();
+
+            //var przedmioty = .Except(.AsQueryable()).ToList();
+            model.AvailablePrzedmioty = bezZaznaczonego;
+        }
+
+        void RemoveProducts(PrzedmiotyGrupyViewModel model)
+        {
+            if (model.RequestedSelected != null)
+            {
+                model.RequestedPrzedmioty.RemoveAll(p => model.RequestedSelected.Contains(p.id_przedmiotu));
+                model.RequestedSelected = null;
+            }
+        }
+
+        void AddProducts(PrzedmiotyGrupyViewModel model)
+        {
+            if (model.AvailableSelected != null)
+            {
+                var prods = _repo2.GetAllPrzedmioty.Where(p => model.AvailableSelected.Contains(p.id_przedmiotu));
+                model.RequestedPrzedmioty.AddRange(prods);
+                model.AvailableSelected = null;
+            }
+        }
+
+        void RestoreSavedState(PrzedmiotyGrupyViewModel model)
+        {
+            model.RequestedPrzedmioty = new List<Przedmioty>();
+
+            //get the previously stored items
+            if (!string.IsNullOrEmpty(model.SavedRequested))
+            {
+                int[] prodids = model.SavedRequested.Split(',').Select(s => int.Parse(s)).ToArray();
+                var prods = _repo2.GetAllPrzedmioty.Where(p => prodids.Contains(p.id_przedmiotu));
+                model.RequestedPrzedmioty.AddRange(prods);
+            }
         }
 
         public ViewResult List(string sortOrder, int? page)
@@ -35,45 +128,24 @@ namespace Dziennik_MVC.Areas.Admin.Controllers
             ViewBag.CurrentSort = sortOrder;    // Zachowanie sortowania pomiędzy przejściami stron
 
             ViewBag.IDGrupySortParm = sortOrder == "ID Grupy asc" ? "ID Grupy desc" : "ID Grupy asc";
-            ViewBag.IDSemestruSortParm = sortOrder == "ID Semestru asc" ? "ID Semestru desc" : "ID Semestru asc";
             ViewBag.NameSortParm = sortOrder == "Name asc" ? "Name desc" : "Name asc";
-            ViewBag.SemesterSortParm = sortOrder == "Semester asc" ? "Semester desc" : "Semester asc";
-            ViewBag.TypSortParm = sortOrder == "Typ asc" ? "Typ desc" : "Typ asc";
 
             var grupy = _repo.GetAllGroups;
 
             switch (sortOrder)
             {
                 case "ID Grupy desc":
-                    grupy = grupy.OrderByDescending(s => s.nazwa_grupy);
+                    grupy = grupy.OrderByDescending(s => s.id_grupy);
                     break;
                 case "ID Grupy asc":
-                    grupy = grupy.OrderBy(s => s.nazwa_grupy);
-                    break;
-                case "ID Semestru desc":
-                    grupy = grupy.OrderByDescending(s => s.nazwa_grupy);
-                    break;
-                case "ID Semestru asc":
-                    grupy = grupy.OrderBy(s => s.nazwa_grupy);
-                    break;
+                    grupy = grupy.OrderBy(s => s.id_grupy);
+                    break;              
                 case "Name desc":
                     grupy = grupy.OrderByDescending(s => s.nazwa_grupy);
                     break;
                 case "Name asc":
                     grupy = grupy.OrderBy(s => s.nazwa_grupy);
-                    break;
-                case "Semester desc":
-                    grupy = grupy.OrderByDescending(s => s.Semestry.rok);
-                    break;
-                case "Semester asc":
-                    grupy = grupy.OrderBy(s => s.Semestry.rok);
-                    break;
-                case "Typ desc":
-                    grupy = grupy.OrderByDescending(s => s.Semestry.typ);
-                    break;
-                case "Typ asc":
-                    grupy = grupy.OrderBy(s => s.Semestry.typ);
-                    break;
+                    break;               
                 default:
                     grupy = grupy.OrderBy(s => s.id_grupy);
                     break;
@@ -84,12 +156,11 @@ namespace Dziennik_MVC.Areas.Admin.Controllers
 
             return View(grupy.ToPagedList(pageNumber, pageSize));
         }
-
+        
         public ActionResult Add()
         {
             _logger.Info("GrupyController.Add => HTTP GET");
             ViewBag.Current = "Grupy";
-            ViewBag.ListaSem = _repo1.GetAllSemestry;
             return View();
         } 
 
@@ -97,7 +168,6 @@ namespace Dziennik_MVC.Areas.Admin.Controllers
         public ActionResult Add(Grupy grupa)
         {
             _logger.Info("GrupyController.Add => Entering | HTTP POST");
-            if(!_repo.GrupaExists(grupa))
                 if (ModelState.IsValid)
                 {
                     _repo.AddGroup(grupa);
@@ -110,7 +180,6 @@ namespace Dziennik_MVC.Areas.Admin.Controllers
                 _logger.Info("GrupyController.Add => FAILED = Add Grupy | HTTP POST");
                 TempData["message"] = "Nie udało się dodać grupy! Taka grupa istnieje!";
                 TempData["status"] = "invalid";
-                ViewBag.ListaSem = _repo1.GetAllSemestry;
                 ViewBag.Current = "Grupy";    
         
             return View(grupa);
@@ -120,7 +189,6 @@ namespace Dziennik_MVC.Areas.Admin.Controllers
         {
             _logger.Info("GrupyController.Edit => HTTP GET");
             ViewBag.Current = "Grupy";
-            ViewBag.ListaSem = _repo1.GetAllSemestry;
             Grupy grupa = _repo.GetGroupByID(id);
             return View(grupa);
         }
@@ -129,7 +197,7 @@ namespace Dziennik_MVC.Areas.Admin.Controllers
         public ActionResult Edit(Grupy grupa)
         {
             _logger.Info("GrupyController.Edit => Entering| HTTP POST");
-            if (!_repo.GrupaExists(grupa))
+            
             if (ModelState.IsValid)
             {
                 _repo.EditGroup(grupa);
@@ -143,7 +211,6 @@ namespace Dziennik_MVC.Areas.Admin.Controllers
             TempData["message"] = "Nie udało się uaktualnić grupy! Taki grupa istnieje!";
             TempData["status"] = "invalid";
             ViewBag.Current = "Grupy";
-            ViewBag.ListaSem = _repo1.GetAllSemestry;
             return View(grupa);
         }
  
@@ -158,13 +225,22 @@ namespace Dziennik_MVC.Areas.Admin.Controllers
         [HttpPost, ActionName("Delete")]
         public ActionResult DeleteConfirmed(int id)
         {
-            _logger.Info("SemestryController.Delete => SUCCES = Delete Semester| HTTP POST");
-            Grupy grupa = _repo.GetGroupByID(id);
-            _repo.DeleteGroup(grupa);
-            _repo.Save();
-            TempData["message"] = "Usunięto grupę!";
-            TempData["status"] = "valid";
-            return RedirectToAction("List");
+            try
+            {
+                Grupy grupa = _repo.GetGroupByID(id);
+                _repo.DeleteGroup(grupa);
+                _repo.Save();
+                TempData["message"] = "Usunięto grupę!";
+                TempData["status"] = "valid";
+                return RedirectToAction("List");
+            }
+            catch (Exception ex)
+            {
+                ModelState.AddModelError("", ex.Message);
+                TempData["message"] = "Nie można usunąć grupy. W grupie znajdują się studenci !!!";
+                TempData["status"] = "invalid";
+                return RedirectToAction("List");
+            }           
         }
 
         protected override void Dispose(bool disposing)

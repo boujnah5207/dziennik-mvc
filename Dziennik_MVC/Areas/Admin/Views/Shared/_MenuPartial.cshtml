@@ -3,27 +3,27 @@
 {
     <li class="current">@Html.ActionLink("Profil", "Profile", "Profile")</li>
     <li>@Html.ActionLink("Studenci", "List", "Studenci")</li>
+    <li>@Html.ActionLink("Przedmioty", "List", "Przedmioty")</li>
     <li>@Html.ActionLink("Grupy", "List", "Grupy")</li>
-    <li>@Html.ActionLink("Semestry", "List", "Semestry")</li>
 }
 @if (@ViewBag.Current == "Students")
 {
     <li>@Html.ActionLink("Profil", "Profile", "Profile")</li> 
     <li class="current">@Html.ActionLink("Studenci", "List", "Studenci")</li>
+    <li>@Html.ActionLink("Przedmioty", "List", "Przedmioty")</li>
     <li>@Html.ActionLink("Grupy", "List", "Grupy")</li>
-    <li>@Html.ActionLink("Semestry", "List", "Semestry")</li>
 }
-@if (@ViewBag.Current == "Semestry")
+@if (@ViewBag.Current == "Przedmioty")
 {
-    <li >@Html.ActionLink("Profil", "Profile", "Profile")</li>
+    <li>@Html.ActionLink("Profil", "Profile", "Profile")</li> 
     <li>@Html.ActionLink("Studenci", "List", "Studenci")</li>
+    <li class="current">@Html.ActionLink("Przedmioty", "List", "Przedmioty")</li>
     <li>@Html.ActionLink("Grupy", "List", "Grupy")</li>
-    <li class="current">@Html.ActionLink("Semestry", "List", "Semestry")</li>
 }
 @if (@ViewBag.Current == "Grupy")
 {
     <li>@Html.ActionLink("Profil", "Profile", "Profile")</li>
     <li>@Html.ActionLink("Studenci", "List", "Studenci")</li>
+    <li>@Html.ActionLink("Przedmioty", "List", "Przedmioty")</li>
     <li class="current">@Html.ActionLink("Grupy", "List", "Grupy")</li>
-    <li>@Html.ActionLink("Semestry", "List", "Semestry")</li>
 }

@@ -1,4 +1,4 @@
-﻿@model Dziennik_MVC.Models.Entities.Administrator
+﻿@model Dziennik_MVC.Models.Entities.Prowadzacy
 
 @{
     ViewBag.Title = "Edycja profilu";
@@ -11,50 +11,26 @@
     @Html.ValidationSummary(true)
     <fieldset>
         <legend>Edycja konta</legend>
+            @Html.HiddenFor(model => model.id_prowadzacego)
 
-        @Html.HiddenFor(model => model.id_uzytkownika)
-
-        <div class="editor">
             @Html.LabelFor(model => model.login)        
             @Html.TextBoxFor(model => model.login, new { disabled = "disabled" })
             @Html.HiddenFor(model => model.login)
             @Html.ValidationMessageFor(model => model.login)
-        </div>
-
-        <div class="editor">
+            
             @Html.HiddenFor(model => model.haslo)
-        </div>
-
-        <div class="editor">
-            @Html.LabelFor(model => model.aktywny)
-            @Html.EditorFor(model => model.aktywny)
-            @Html.ValidationMessageFor(model => model.aktywny)
-        </div>
-
-        <div class="editor">
+           
             @Html.LabelFor(model => model.imie)       
             @Html.EditorFor(model => model.imie)
             @Html.ValidationMessageFor(model => model.imie)
-        </div>
 
-        <div class="editor">
             @Html.LabelFor(model => model.nazwisko)       
             @Html.EditorFor(model => model.nazwisko)
             @Html.ValidationMessageFor(model => model.nazwisko)
-        </div>
 
-        <div class="editor">
-            @Html.LabelFor(model => model.email)
-            @Html.EditorFor(model => model.email)
-            @Html.ValidationMessageFor(model => model.email)
-        </div>
-
-        <div class="editor">
-            @Html.LabelFor(model => model.id_uprawnienia, "Uprawnienia")
-            @Html.DropDownList("id_uprawnienia", ViewBag.ListaUprawnien as SelectList)
-            @Html.ValidationMessageFor(model => model.id_uprawnienia)
-        </div>
-
+            @Html.LabelFor(model => model.admin)
+            @Html.EditorFor(model => model.admin)
+            @Html.ValidationMessageFor(model => model.admin)
         <p>
             <input type="submit" value="Zapisz zmiany" />
         </p>

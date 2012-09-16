@@ -1,21 +1,14 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Data;
-using System.Data.Entity;
-using System.Linq;
-using System.Web;
-using System.Web.Mvc;
-using Dziennik_MVC.Models.Entities;
-using Dziennik_MVC.Models.Data.Concrete;
+﻿using System.Web.Mvc;
 using Dziennik_MVC.Models.Data.Abstract;
+using Dziennik_MVC.Models.Entities;
 
 namespace Dziennik_MVC.Areas.Admin.Controllers
 { 
     public class ProfileController : Controller
     {
-        private IUzytkownicyRepository _repo;
+        private IUsersRepository _repo;
 
-        public ProfileController(IUzytkownicyRepository repo) 
+        public ProfileController(IUsersRepository repo) 
         {
             _repo = repo;
         }
@@ -27,8 +20,7 @@ namespace Dziennik_MVC.Areas.Admin.Controllers
         public ViewResult Profile() {
             
             ViewBag.Current = "Profile";    // Aktualne zaznaczenie zakladki Profil w Menu 
-
-            var user = _repo.GetUser(User.Identity.Name) as Administrator;
+            var user = _repo.GetProwadzacyByName(User.Identity.Name);
 
             return View(user);
         }
@@ -38,11 +30,8 @@ namespace Dziennik_MVC.Areas.Admin.Controllers
  
         public ViewResult Edit(int id)
         {
-            Administrator user = _repo.GetUser(id) as Administrator;
-
-            ViewBag.ListaUprawnien = new SelectList(_repo.GetAllRoles, "id_uprawnienia", "nazwa_uprawnienia", user.id_uzytkownika); // Lista Uprawnien
-            ViewBag.Current = "Profile";  // Aktualne zaznaczenie zakladki Profil w Menu 
-           
+            Prowadzacy user = _repo.GetProwadzacyById(id);
+            ViewBag.Current = "Profile";  // Aktualne zaznaczenie zakladki Profil w Menu            
 
             return View(user);
         }
@@ -51,17 +40,16 @@ namespace Dziennik_MVC.Areas.Admin.Controllers
         // POST: /Profile/Edit/1
 
         [HttpPost]
-        public ActionResult Edit(Administrator user )
+        public ActionResult Edit(Prowadzacy user )
         {
            // var admin = user as Admins;
             if (ModelState.IsValid)
             {
-                _repo.EditUser(user);
+                _repo.EditProwadzacy(user);
                 _repo.Save();
                 TempData["message"] = "Zauktalizowano twój profil!";                     // wiadomość w _AdminLayout
                 return RedirectToRoute("Admin_default", new { action = "Profile" });
             }
-            ViewBag.ListaUprawnien = new SelectList(_repo.GetAllRoles, "id_uprawnienia", "nazwa_uprawnienia", user.id_uzytkownika);     // Lista
             TempData["message"] = "Nie udało się zaktualizować twojego profilu!";                                   // wiadomość w _AdminLayout
             return View(user);
         }

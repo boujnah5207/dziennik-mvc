@@ -1,43 +1,48 @@
-﻿using System.Linq;
+﻿using System;
+using System.Collections.Generic;
+using System.Data;
+using System.Data.Entity;
+using System.Linq;
+using System.Web;
 using System.Web.Mvc;
+using Dziennik_MVC.Models.Entities;
+using Dziennik_MVC.Models.Data.Concrete;
+using Dziennik_MVC.Models.Data.Abstract;
+using PagedList;
 using System.Web.Security;
 using Dziennik_MVC.Infrastructure.Logging;
-using Dziennik_MVC.Models.Data.Abstract;
-using Dziennik_MVC.Models.Entities;
-using PagedList;
+using Dziennik_MVC.Areas.Admin.ViewModels;
 
 namespace Dziennik_MVC.Areas.Admin.Controllers
 {
     [Authorize(Roles = "Admin")]
-    public class StudenciController : Controller
+    public class SharedController : Controller
     {
         private IGrupyRepository _repo;
         private IUsersRepository _repo1;
         private readonly ILogger _logger;
 
-        public StudenciController(IGrupyRepository repo, IUsersRepository repo2, ILogger logger) 
+        public SharedController(IGrupyRepository repo, IUsersRepository repo1, ILogger logger) 
         {
             _repo = repo;
-            _repo1 = repo2;
+            _repo1 = repo1;
             _logger = logger;
         }
 
-        //
-        // GET: /Admin/Students/
-
-        public ViewResult List(string sortOrder, int? page)
+        public ViewResult ListaStudentow(int id, string sortOrder, string nazwa)
         {
-             _logger.Info("StudenciController.List => HTTP POST");
-            ViewBag.Current = "Students";    // Aktualne zaznaczenie zakladki Profil w Menu 
+            _logger.Info("GrupyController.ListaStudentow => HTTP POST");
+            ViewBag.Current = "Grupy";    // Aktualne zaznaczenie zakladki Profil w Menu 
             ViewBag.CurrentSort = sortOrder;    // Zachowanie sortowania pomiędzy przejściami stron
+
+            ViewBag.NazwaGrupy = _repo.GetGroupByID(id).nazwa_grupy;
 
             ViewBag.IDStudentaSortParm = sortOrder == "ID Studenta asc" ? "ID Studenta desc" : "ID Studenta asc";
             ViewBag.NameSortParm = sortOrder == "Name asc" ? "Name desc" : "Name asc";
             ViewBag.LastNameSortParm = sortOrder == "LastName asc" ? "LastName desc" : "LastName asc";
-            ViewBag.GroupParm = sortOrder == "Group asc" ? "Group desc" : "Group asc";
             ViewBag.IndexSortParm = sortOrder == "Index asc" ? "Index desc" : "Index asc";
 
-            var students = _repo1.GetAllStudents;
+            var students = _repo1.getStudentsInGroup(id);
 
             switch (sortOrder)
             {
@@ -59,12 +64,6 @@ namespace Dziennik_MVC.Areas.Admin.Controllers
                 case "LastName asc":
                     students = students.OrderBy(s => s.nazwisko);
                     break;
-                case "Group desc":
-                    students = students.OrderByDescending(s => s.Grupy.nazwa_grupy);
-                    break;
-                case "Group asc":
-                    students = students.OrderBy(s => s.Grupy.nazwa_grupy);
-                    break;
                 case "Index desc":
                     students = students.OrderByDescending(s => s.nr_indeksu);
                     break;
@@ -76,53 +75,20 @@ namespace Dziennik_MVC.Areas.Admin.Controllers
                     break;
             }
 
-            int pageSize = 10;
-            int pageNumber = (page ?? 1); // Jeśli page == null to page =1
-
-            return View(students.ToPagedList(pageNumber, pageSize));
-        }
-
-        //
-        // GET: /Admin/Students/Add
-
-        public ActionResult Add()
-        {
-            _logger.Info("StudenciController.Add => HTTP GET");
-            ViewBag.Current = "Students";
-            ViewBag.ListaGrup = _repo.GetAllGroups;
-            return View();
-        }
-
-        //
-        // POST: /Admin/Students/Add
-
-        [HttpPost]
-        public ActionResult Add(Studenci student)
-        {
-            _logger.Info("StudenciController.Add => Entering | HTTP POST");
-            if (!_repo1.StudentExists(student) && !_repo1.IndeksExists(student))
-            if (ModelState.IsValid)
+            var listaStudentowViewModel = new ListaStudentowViewModel
             {
-                student.haslo = FormsAuthentication.HashPasswordForStoringInConfigFile(student.haslo.Trim(), "md5");
-                _repo1.AddStudent(student);
-                _repo1.Save();
-                _logger.Info("StudenciController.Add => SUCCES = Add Studenci| HTTP POST");
-                TempData["message"] = "Pomyślnie dodano nowego studenta!";
-                TempData["status"] = "valid";
-                return RedirectToAction("List");
-            }
-            _logger.Info("StudenciController.Add => FAILED = Add Studenci | HTTP POST");
-            TempData["message"] = "Nie udało się dodać studenta! Taki student istnieje!";
-            TempData["status"] = "invalid";
-            ViewBag.Current = "Students";
-            ViewBag.ListaGrup = _repo.GetAllGroups;
-            return View(student);
+                grupa = _repo.GetGroupByID(id),
+                studenci = students,
+                nazwaKontrolera = nazwa
+            };
+
+            return View(listaStudentowViewModel);
         }
 
         //
-        // GET: /Admin/Students/Edit/5
+        // GET: /Admin/StudentEdit/Edit/5
 
-        public ActionResult Edit(int id)
+        public ActionResult StudentEdit(int id)
         {
             _logger.Info("StudenciController.Edit => HTTP GET");
             ViewBag.Current = "Students";
@@ -132,10 +98,10 @@ namespace Dziennik_MVC.Areas.Admin.Controllers
         }
 
         //
-        // POST: /Admin/Students/Edit/5
+        // POST: /Admin/StudentEdit/Edit/5
 
         [HttpPost]
-        public ActionResult Edit(Studenci student)
+        public ActionResult StudentEdit(Studenci student)
         {
             _logger.Info("StudenciController.Edit => Entering| HTTP POST");
             if (ModelState.IsValid)
@@ -148,7 +114,7 @@ namespace Dziennik_MVC.Areas.Admin.Controllers
                 return RedirectToAction("List");
             }
             _logger.Info("StudenciController.Edit => FAILED = Edit Studenci| HTTP POST");
-           
+
             ViewBag.ListaGrup = _repo.GetAllGroups;
             TempData["message"] = "Nie udało się uaktualnić studenta! Taki student istnieje!";
             TempData["status"] = "invalid";
@@ -159,7 +125,7 @@ namespace Dziennik_MVC.Areas.Admin.Controllers
         //
         // GET: /Admin/Students/Delete/5
 
-        public ActionResult Delete(int id)
+        public ActionResult StudentDelete(int id)
         {
             _logger.Info("StudenciController.Delete => HTTP GET");
             ViewBag.Current = "Students";

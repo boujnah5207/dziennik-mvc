@@ -1,4 +1,4 @@
-﻿@model Dziennik_MVC.Models.Entities.Administrator
+﻿@model Dziennik_MVC.Models.Entities.Prowadzacy
 
 @{
     ViewBag.Title = "Profile";
@@ -7,49 +7,27 @@
 
 <fieldset>
     <legend>Twoje konto</legend>
+    @Html.HiddenFor(model => model.id_prowadzacego)
 
-    <table>
-    
-    </table>
+    @Html.LabelFor(model => model.login)        
+    @Html.TextBoxFor(model => model.login, new { disabled = "disabled" })
+    @Html.HiddenFor(model => model.login)
+    @Html.ValidationMessageFor(model => model.login)
+            
+    @Html.HiddenFor(model => model.haslo)
+           
+    @Html.LabelFor(model => model.imie)       
+    @Html.TextBoxFor(model => model.imie, new { disabled = "disabled" })
+    @Html.ValidationMessageFor(model => model.imie)
 
-    <div class="display">
-    <div class="display-label">Login</div>
-    <div class="display-field">
-        @Html.DisplayFor(model => model.login)
-    </div>
+    @Html.LabelFor(model => model.nazwisko)       
+    @Html.TextBoxFor(model => model.nazwisko, new { disabled = "disabled" })
+    @Html.ValidationMessageFor(model => model.nazwisko)
 
-    <div class="display-label">Konto</div>
-    <div class="display-field">
-        @if (Model.aktywny){
-             @:Aktywne 
-        }
-        else {
-             @:Nieaktywne
-        }
-        
-    </div>
-
-    <div class="display-label">Imie</div>
-    <div class="display-field">
-        @Html.DisplayFor(model => model.imie)
-    </div>
-
-    <div class="display-label">Nazwisko</div>
-    <div class="display-field">
-        @Html.DisplayFor(model => model.nazwisko)
-    </div>
-
-    <div class="display-label">Email</div>
-    <div class="display-field">
-        @Html.DisplayFor(model => model.email)
-    </div>
-
-    <div class="display-label">Uprawnienia</div>
-    <div class="display-field">
-        @Html.DisplayFor(model => model.Uprawnienia.nazwa_uprawnienia)
-    </div>
-    </div>
+    @Html.LabelFor(model => model.admin)
+    @Html.CheckBoxFor(model => model.admin, new { disabled = "disabled" })
+    @Html.ValidationMessageFor(model => model.admin)
 </fieldset>
 <p>
-    @Html.ActionLink("Edytuj dane konta", "Edit", new { id=Model.id_uzytkownika })
+    @Html.ActionLink("Edytuj dane konta", "Edit", new { id=Model.id_prowadzacego })
 </p>

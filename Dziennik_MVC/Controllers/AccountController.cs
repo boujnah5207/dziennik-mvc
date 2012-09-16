@@ -1,13 +1,9 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
 using System.Web.Mvc;
 using System.Web.Routing;
 using System.Web.Security;
-
-using Dziennik_MVC.Models;
 using Dziennik_MVC.Helpers;
+using Dziennik_MVC.Models;
 
 namespace Dziennik_MVC.Controllers
 {
@@ -28,7 +24,7 @@ namespace Dziennik_MVC.Controllers
 
         public ActionResult LogOn()
         {
-            if (Request.IsAuthenticated && (User.IsInRole("Admin") || (User.IsInRole("Wykladowca") || (User.IsInRole("Student"))))) // Jesli ktoś jest zalogowany i chce sie ponownie zalogować
+            if (Request.IsAuthenticated && (User.IsInRole("Admin") )) // Jesli ktoś jest zalogowany i chce sie ponownie zalogować
                 return RedirectToRoute("Admin_default", new { 
                 
                     controller = "Profile",
@@ -47,31 +43,22 @@ namespace Dziennik_MVC.Controllers
             {
                 if (MembershipService.ValidateUser(model.UserName, model.Password))
                 {
-                    if (MembershipService.isUserActive(model.UserName))
+                    
+                    FormsAuthentication.SetAuthCookie(model.UserName, model.RememberMe);
+                    if (Url.IsLocalUrl(returnUrl) && returnUrl.Length > 1 && returnUrl.StartsWith("/") && !returnUrl.StartsWith("//") && !returnUrl.StartsWith("/\\"))
                     {
-                        FormsAuthentication.SetAuthCookie(model.UserName, model.RememberMe);
-                        if (Url.IsLocalUrl(returnUrl) && returnUrl.Length > 1 && returnUrl.StartsWith("/") && !returnUrl.StartsWith("//") && !returnUrl.StartsWith("/\\"))
-                        {
-                            return Redirect(returnUrl);
-                        }
-                        else
-                        {
-                            if (AuthorizationService.IsUserInRole(model.UserName, "Admin")) { // Jeśli zalogował się admin to przenieś do jego View
-                                return RedirectToRoute("Admin_default", new
-                                {
-
-                                    controller = "Profile",
-                                    action = "Profile"
-                                    
-
-                                });
-                            }
-                            return RedirectToAction("Index", "Home");
-                        }
+                        return Redirect(returnUrl);
                     }
                     else
                     {
-                        ModelState.AddModelError("", "Konto nie zostało aktywowane! Skontaktuj się z administratorem");
+                        if (AuthorizationService.IsUserInRole(model.UserName, "Admin")) { // Jeśli zalogował się admin to przenieś do jego View
+                            return RedirectToRoute("Admin_default", new
+                            {
+                                controller = "Profile",
+                                action = "Profile"
+                            });
+                        }
+                        return RedirectToAction("Index", "Home");
                     }
                 }
                 else
