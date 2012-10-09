@@ -9,9 +9,9 @@
 <fieldset>
     <legend>Usuń przedmiot</legend>
     
-    <div class="display-label">Nazwa Przedmiotu</div>
-    <div class="display-field">
-        @Html.DisplayFor(model => model.nazwa_przedmiotu)
+    <div>
+        @Html.LabelFor(model => model.nazwa_przedmiotu)
+        @Html.TextBoxFor(model => model.nazwa_przedmiotu, new { disabled = "disabled" })
     </div>
 
     <input type="submit" value="Usuń" /> 

@@ -8,9 +8,9 @@
 <fieldset>
     <legend>Usuwanie grupy</legend>
     <p></p>
-    <div class="display-label">Nazwa Grupy</div>
-    <div class="display-field">
-        @Html.DisplayFor(model => model.nazwa_grupy)
+     <div>
+        @Html.LabelFor(model => model.nazwa_grupy)
+        @Html.TextBoxFor(model => model.nazwa_grupy, new { disabled = "disabled" })
     </div>
     <input type="submit" value="Usuń" /> 
 </fieldset>

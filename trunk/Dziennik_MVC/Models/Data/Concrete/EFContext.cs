@@ -1,8 +1,8 @@
 ﻿using System.Data.Entity;
 using System.Data.Entity.ModelConfiguration.Conventions;
 using System.Web.Security;
-using Dziennik_MVC.Models.Entities;
 using Dziennik_MVC.Models.Data.Abstract;
+using Dziennik_MVC.Models.Entities;
 
 namespace Dziennik_MVC.Models.Data.Concrete
 {

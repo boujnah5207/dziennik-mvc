@@ -1,17 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Data;
-using System.Data.Entity;
-using System.Linq;
-using System.Web;
+﻿using System.Linq;
 using System.Web.Mvc;
-using Dziennik_MVC.Models.Entities;
-using Dziennik_MVC.Models.Data.Concrete;
-using Dziennik_MVC.Models.Data.Abstract;
-using PagedList;
-using System.Web.Security;
-using Dziennik_MVC.Infrastructure.Logging;
 using Dziennik_MVC.Areas.Admin.ViewModels;
+using Dziennik_MVC.Infrastructure.Logging;
+using Dziennik_MVC.Models.Data.Abstract;
+using Dziennik_MVC.Models.Entities;
 
 namespace Dziennik_MVC.Areas.Admin.Controllers
 {

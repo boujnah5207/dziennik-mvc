@@ -31,22 +31,22 @@ namespace Dziennik_MVC.Models.Data.Concrete
 
         public Prowadzacy GetProwadzacyById(int id)
         {
-            return entities.Prowadzacy.SingleOrDefault(user => user.id_prowadzacego == id);
+            return entities.Prowadzacy.FirstOrDefault(user => user.id_prowadzacego == id);
         }
 
         public Prowadzacy GetProwadzacyByName(string userName)
         {
-            return entities.Prowadzacy.SingleOrDefault(user => user.login == userName);
+            return entities.Prowadzacy.FirstOrDefault(user => user.login == userName);
         }
 
         public Studenci GetStudentByName(string name)
         {
-            return (entities.Studenci.SingleOrDefault(g => g.login == name));
+            return (entities.Studenci.FirstOrDefault(g => g.login == name));
         }
 
         public Studenci GetStudentByID(int id)
         {
-            return entities.Studenci.Single(g => g.id_studenta == id);
+            return entities.Studenci.FirstOrDefault(g => g.id_studenta == id);
         }
 
 
@@ -105,7 +105,7 @@ namespace Dziennik_MVC.Models.Data.Concrete
             if (user == null)
                 return false;
 
-            return (entities.Prowadzacy.SingleOrDefault(u => u.id_prowadzacego == user.id_prowadzacego || u.login == user.login) != null);
+            return (entities.Prowadzacy.FirstOrDefault(u => u.id_prowadzacego == user.id_prowadzacego || u.login == user.login) != null);
         }
 
         public bool StudentExists(Studenci student)
@@ -120,9 +120,9 @@ namespace Dziennik_MVC.Models.Data.Concrete
 
         public bool IsAdmin(string user)
         {
-            Prowadzacy prow = entities.Prowadzacy.SingleOrDefault(x => x.login == user);
+            Prowadzacy prow = entities.Prowadzacy.FirstOrDefault(x => x.login == user);
             if (prow != null)
-                if (entities.Prowadzacy.SingleOrDefault(x => x.login == user).admin)
+                if (entities.Prowadzacy.FirstOrDefault(x => x.login == user).admin)
                     return true;
                 else
                     return false;

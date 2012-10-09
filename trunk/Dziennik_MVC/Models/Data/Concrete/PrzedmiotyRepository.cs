@@ -19,14 +19,19 @@ namespace Dziennik_MVC.Models.Data.Concrete
             get { return from g in entities.Przedmioty select g; }
         }
 
+        public IQueryable<Przedmioty> GetPrzedmiotyNiePrzypisane
+        {
+            get { return from g in entities.Przedmioty where g.Prowadzacy.id_prowadzacego ==null select g; }
+        }
+
         public Przedmioty GetPrzedmiotByName(string name)
         {
-            return (entities.Przedmioty.Single(g => g.nazwa_przedmiotu == name));
+            return (entities.Przedmioty.FirstOrDefault(g => g.nazwa_przedmiotu == name));
         }
 
         public Przedmioty GetPrzedmiotByID(int id)
         {
-            return entities.Przedmioty.Single(g => g.id_przedmiotu == id);
+            return entities.Przedmioty.FirstOrDefault(g => g.id_przedmiotu == id);
         }
 
         public bool PrzedmiotExists(Przedmioty przedmiot) {

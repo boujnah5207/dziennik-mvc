@@ -1,16 +1,16 @@
-﻿@model PagedList.IPagedList<Dziennik_MVC.Models.Entities.Studenci>
+﻿@model PagedList.IPagedList<Dziennik_MVC.Models.Entities.Prowadzacy>
 
 @{
-    ViewBag.Title = "Lista studentów";
+    ViewBag.Title = "Lista prowadzących";
     Layout = "~/Areas/Admin/Views/Shared/_AdminLayout.cshtml";
 }
 
 <div class="pageTitle">
-    <h2>Akutalna lista studentów</h2>
+    <h2>Akutalna lista prowadzących</h2>
 </div>
 
 <div class="opcje">
-    @Html.ActionLink("Dodaj studenta", "Add")
+    @Html.ActionLink("Dodaj prowadzącego", "Add")
 </div>
 
 <table>
@@ -47,32 +47,16 @@
               @:</div>
             }            
         </th>        
-        <th>
-            @Html.ActionLink("Grupa", "List", new { sortOrder = ViewBag.GroupParm })
+        <th style="width:20px;">
+            @Html.ActionLink("Administrator", "List", new { sortOrder = ViewBag.GroupParm })
 
-            @if (ViewBag.CurrentSort == "Group asc")
+            @if (ViewBag.CurrentSort == "Admin asc")
             {
              @:<div class="sorting">
               @:↑
              @:</div>
             }
-            @if (ViewBag.CurrentSort == "Group desc")
-            { 
-              @:<div class="sorting">
-              @:↓
-              @:</div>
-            }            
-        </th>
-        <th>
-            @Html.ActionLink("Nr. Indeksu", "List", new { sortOrder = ViewBag.IndexSortParm })
-
-            @if (ViewBag.CurrentSort == "Index asc")
-            {
-             @:<div class="sorting">
-              @:↑
-             @:</div>
-            }
-            @if (ViewBag.CurrentSort == "Index desc")
+            @if (ViewBag.CurrentSort == "Admin desc")
             { 
               @:<div class="sorting">
               @:↓
@@ -90,20 +74,14 @@
         </td>
         <td>
             @Html.DisplayFor(modelItem => item.nazwisko)
-        </td>
-       <td>        
-            @Html.ActionLink(item.Grupy.nazwa_grupy, "ListaStudentow", "Shared", new
-               {
-                   id = item.id_grupy,
-                   nazwa = @HttpContext.Current.Request.RequestContext.RouteData.Values["controller"].ToString()
-               }, null)
         </td>    
-        <td>
-            @Html.DisplayFor(modelItem => item.nr_indeksu)
+        <td style="width:20px;">
+            @Html.CheckBoxFor(modelItem => item.admin, new { disabled = "disabled", style = "display:inherit" })
         </td>       
         <td>
-            @Html.ActionLink("Edytuj", "Edit", new { id = item.id_studenta }) |
-            @Html.ActionLink("Usuń", "Delete", new { id = item.id_studenta })
+            @Html.ActionLink("Przypisz przedmioty", "PrzypiszPrzedmioty", new { id = item.id_prowadzacego }) |
+            @Html.ActionLink("Edytuj", "Edit", new { id = item.id_prowadzacego }) |
+            @Html.ActionLink("Usuń", "Delete", new { id = item.id_prowadzacego })
         </td>
     </tr>
 }
