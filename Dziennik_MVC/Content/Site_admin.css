@@ -230,7 +230,7 @@ table tr th, table tr td
     border: 1px;
     border-style: solid;
     border-color: #000000;
-    width: 60px;
+    width: auto;
 }
 
 table tr td
@@ -251,7 +251,7 @@ input, textarea
 {
     display: block;
     width: 180px;
-    margin-bottom: 5px;
+    margin-bottom: 4px;
 }
 
 input[type='checkbox']
@@ -262,7 +262,7 @@ input[type='checkbox']
 
 input[type="text"], input[type="password"]
 {
-    padding: 3px;
+    padding: 4px;
     font-size: 15px;
     -webkit-border-radius: 3px;
     -moz-border-radius: 3px;
@@ -285,7 +285,7 @@ select
     color: #000000;
     font-size: 1.2em;
     padding: 0;
-    width: 190px;;
+    width: 190px;
 }
 
 input[type="submit"]

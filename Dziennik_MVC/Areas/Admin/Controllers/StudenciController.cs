@@ -42,10 +42,10 @@ namespace Dziennik_MVC.Areas.Admin.Controllers
             switch (sortOrder)
             {
                 case "ID Studenta desc":
-                    students = students.OrderByDescending(s => s.imie);
+                    students = students.OrderByDescending(s => s.id_studenta);
                     break;
                 case "ID Studenta asc":
-                    students = students.OrderBy(s => s.imie);
+                    students = students.OrderBy(s => s.id_studenta);
                     break;
                 case "Name desc":
                     students = students.OrderByDescending(s => s.imie);

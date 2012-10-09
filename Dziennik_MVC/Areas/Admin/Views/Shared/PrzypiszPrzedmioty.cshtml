@@ -1,0 +1,63 @@
+﻿@model Dziennik_MVC.Areas.Admin.ViewModels.PrzedmiotyGrupyViewModel
+@{
+    ViewBag.Title = "Przypisz przedmioty";
+    Layout = "~/Areas/Admin/Views/Shared/_AdminLayout.cshtml";
+}
+@if (Model != null)
+{
+<div class="pageTitle">
+   <h2>Przypisz przedmioty</h2>
+</div>
+     using (Html.BeginForm())
+     {
+                <table style="width:auto;margin:auto;">
+                    <thead>
+                        <tr>
+                            <th>Dostępne</th><th style="width:60px;">&nbsp;</th><th>Przypisane</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>
+                                @Html.ListBoxFor(model => model.AvailableSelected, new MultiSelectList(Model.AvailablePrzedmioty, "id_przedmiotu", "nazwa_przedmiotu", Model.AvailableSelected), new { size = "6" })
+                            </td>
+                            <td>
+                                <input type="submit" name="add" id="add" value=">>" style="width:60px"/><br />
+                                <input type="submit" name="remove" id="remove" value="<<" style="width:60px"/>
+                            </td>
+                            <td>
+                                @Html.ListBoxFor(model => model.RequestedSelected, new MultiSelectList(Model.RequestedPrzedmioty, "id_przedmiotu", "nazwa_przedmiotu", Model.RequestedSelected), new { size = "6" })
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+                <br />      
+                @Html.HiddenFor(model => model.SavedRequested)               
+                <fieldset>
+                    <legend>Wybrane przedmioty</legend>
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Nazwa przedmiotu</th>
+                            </tr>
+                        </thead>
+                        <tbody id="tableBody">
+                        @foreach (var product in Model.RequestedPrzedmioty)
+                        {
+                            <tr>
+                                <td>@product.nazwa_przedmiotu </td>
+                            </tr>
+                        } 
+                        </tbody>                         
+                    </table>
+                </fieldset>
+         <br />
+                <input type="submit" name="send" id="send" value="Zapisz zmiany" />
+                @Html.ValidationSummary()
+     }
+}
+<div>
+<br />
+<br />
+    @Html.ActionLink("powrót", "List", @HttpContext.Current.Request.RequestContext.RouteData.Values["controller"].ToString(), null, null)
+</div>

@@ -20,12 +20,12 @@ namespace Dziennik_MVC.Models.Data.Concrete
 
         public Entities.Grupy GetGroupByName(string name)
         {
-            return (entities.Grupy.Single(g => g.nazwa_grupy == name));
+            return (entities.Grupy.FirstOrDefault(g => g.nazwa_grupy == name));
         }
 
         public Entities.Grupy GetGroupByID(int id)
         {
-            return entities.Grupy.Single(g => g.id_grupy == id);
+            return entities.Grupy.FirstOrDefault(g => g.id_grupy == id);
         }
 
         public void AddGroup(Entities.Grupy group)

@@ -6,6 +6,7 @@ namespace Dziennik_MVC.Models.Data.Abstract
     public interface IPrzedmiotyRepository
     {
         IQueryable<Przedmioty> GetAllPrzedmioty { get; }
+        IQueryable<Przedmioty> GetPrzedmiotyNiePrzypisane{ get; }
 
         Przedmioty GetPrzedmiotByName(string name);
         Przedmioty GetPrzedmiotByID(int id);

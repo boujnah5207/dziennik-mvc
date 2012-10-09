@@ -1,13 +1,13 @@
-﻿@model Dziennik_MVC.Models.Entities.Studenci
+﻿@model Dziennik_MVC.Models.Entities.Prowadzacy
 
 @{
-    ViewBag.Title = "Usuwanie Studenta";
+    ViewBag.Title = "Usuwanie prowadzącego";
 
     Layout = "~/Areas/Admin/Views/Shared/_AdminLayout.cshtml";
 }
 @using (Html.BeginForm()) {
 <fieldset>
-    <legend>Usuń studenta</legend>
+    <legend>Usuń prowadzącego</legend>
 
      <div>
         @Html.LabelFor(model => model.login)
@@ -19,13 +19,13 @@
         @Html.LabelFor(model => model.nazwisko)
         @Html.TextBoxFor(model => model.nazwisko, new { disabled = "disabled" })
 
-        @Html.LabelFor(model => model.nr_indeksu)
-        @Html.TextBoxFor(model => model.nr_indeksu, new { disabled = "disabled" })
+        @Html.LabelFor(model => model.admin)
+        @Html.CheckBoxFor(model => model.admin, new { disabled = "disabled" })
     </div>
-
+    <br/>
     <input type="submit" value="Usuń" /> 
 </fieldset>
 }
     <p>        
-        @Html.ActionLink("powrót do listy studentów", "List")
+        @Html.ActionLink("powrót do listy prowadzących", "List")
     </p>

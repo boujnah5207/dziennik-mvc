@@ -1,12 +1,12 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Web.Mvc;
+using Dziennik_MVC.Areas.Admin.ViewModels;
 using Dziennik_MVC.Infrastructure.Logging;
 using Dziennik_MVC.Models.Data.Abstract;
 using Dziennik_MVC.Models.Entities;
 using PagedList;
-using Dziennik_MVC.Areas.Admin.ViewModels;
-using System.Collections.Generic;
 
 namespace Dziennik_MVC.Areas.Admin.Controllers
 {
@@ -26,12 +26,27 @@ namespace Dziennik_MVC.Areas.Admin.Controllers
             _logger = logger;
         }
 
-        public ActionResult PrzypiszPrzedmioty()
+        public ActionResult PrzypiszPrzedmioty(int id)
         {
             ViewBag.Current = "Grupy";    // Aktualne zaznaczenie zakladki Profil w Menu 
 
-            PrzedmiotyGrupyViewModel model = new PrzedmiotyGrupyViewModel { AvailablePrzedmioty = _repo2.GetAllPrzedmioty.ToList(), RequestedPrzedmioty = new List<Przedmioty>() };
-            return View(model);
+            var grupa = _repo.GetGroupByID(id);
+
+            if (grupa != null)
+            {
+                var przedmiotyPrzypisane = grupa.Przedmioty.ToList();
+                var wszystkiePrzedmioty = _repo2.GetAllPrzedmioty.ToList();
+                var mozliweDoWyboru = wszystkiePrzedmioty.Except(przedmiotyPrzypisane).ToList();
+
+                PrzedmiotyGrupyViewModel model = new PrzedmiotyGrupyViewModel { AvailablePrzedmioty = mozliweDoWyboru, RequestedPrzedmioty = przedmiotyPrzypisane };
+                model.SavedRequested = string.Join(",", model.RequestedPrzedmioty.Select(p => p.id_przedmiotu.ToString()).ToArray());
+                return View(model);
+            }
+            else {
+                TempData["message"] = "Taka grupa nie istnieje!";
+                TempData["status"] = "invalid";
+                return View();
+            }
         }
 
         [HttpPost]
@@ -48,16 +63,17 @@ namespace Dziennik_MVC.Areas.Admin.Controllers
                 RemoveProducts(model);
             else if (!string.IsNullOrEmpty(send))
             {
-                Validate(model);
+               
                 if (ModelState.IsValid)
                 {
                     var grupa = _repo.GetGroupByID(id);
+                    grupa.Przedmioty.Clear();
                     foreach(Przedmioty przedmiot in model.RequestedPrzedmioty){
                         grupa.Przedmioty.Add(przedmiot);
                     }
                     _repo.EditGroup(grupa);
                     _repo.Save();
-                    _logger.Info("GrupyController.Edit => SUCCES = Edit Semester| HTTP POST");
+                    _logger.Info("GrupyController.Edit => SUCCES = Edit PRZYPISZPRZEMDIOTY| HTTP POST");
                     TempData["message"] = "Zauktalizowano grupę!";
                     TempData["status"] = "valid";
                     return RedirectToAction("List");
@@ -66,12 +82,6 @@ namespace Dziennik_MVC.Areas.Admin.Controllers
             }
             SaveState(model);
             return View(model);
-        }
-
-        private void Validate(PrzedmiotyGrupyViewModel model)
-        {           
-            if (string.IsNullOrEmpty(model.SavedRequested))
-                ModelState.AddModelError("", "Nie wybrałeś żadnych przedmiotów!");
         }
 
         void SaveState(PrzedmiotyGrupyViewModel model)
