@@ -1,0 +1,1 @@
+Simple students App in written in ASP MVC 3, Ninject, Entity Framework 4.1, Moq, Unit Testing, Custom membership/roles provider
